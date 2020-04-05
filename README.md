@@ -12,8 +12,7 @@ update your ubuntu first, then install panel
 * wget https://github.com/emre1393/xtreamui_mirror/raw/master/install.py; 
 * sudo python install.py  
   
-If you want a whole NEW installation, choose MAIN and then ADMIN.  
-If you want ONLY the admin part, select ADMIN only.  
+If you want a whole NEW installation, choose MAIN and then UPDATE.  
 If you want to install load balance on additional servers, add a server to panel in manage servers page, then run script and proceed with LB option.  
 If you want to update admin panel, select UPDATE, then paste download link of release_xyz.zip file.  
 
