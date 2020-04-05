@@ -22,9 +22,6 @@ If you want to update admin panel, select UPDATE, then paste download link of re
 
 
 ### Files Hashes ###
-* admin_xtreamcodes_reborn.tar
-* sha1: "2D36AEF6E3EF2DBB8943AF2D6F4F73D7EEFB6ECB"
-
 * main_xtreamcodes_reborn.tar
 * sha1: "532B63EA0FEA4E6433FC47C3B8E65D8A90D5A4E9"
 
