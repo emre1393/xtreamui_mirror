@@ -35,7 +35,7 @@ you can compare my install.py with original one.
 
 ### note2,
 edit pytools/balancer.py to use "auto lb installer" from this mirror. auto lb installer added to panel with update    
-`sed -i 's|"https://xtream-ui.com/install/balancer.py"|"https://bitbucket.org/emre1393/xtreamui_mirror/downloads/balancer.py"|g' /home/xtreamcodes/iptv_xtream_codes/pytools/balancer.py`  
+`sed -i 's|"https://xtream-ui.com/install/balancer.py"|"https://github.com/emre1393/xtreamui_mirror/raw/master/balancer.py"|g' /home/xtreamcodes/iptv_xtream_codes/pytools/balancer.py`  
 
 ### note3,  
 developer made update releases open to public after r22c release, you can download them from https://xtream-ui.com.  
