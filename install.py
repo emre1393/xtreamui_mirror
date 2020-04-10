@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import subprocess, os, random, string, sys, shutil, socket, zipfile
+import subprocess, os, random, string, sys, shutil, socket, zipfile, urllib2
 from itertools import cycle, izip
-from zipfile import ZipFile
+from urllib2 import Request, urlopen, URLError, HTTPError
 
 rDownloadURL = {"main": "https://bitbucket.org/emre1393/xtreamui_mirror/downloads/main_xtreamcodes_reborn.tar.gz", "sub": "https://bitbucket.org/emre1393/xtreamui_mirror/downloads/sub_xtreamcodes_reborn.tar.gz"}
 rPackages = ["libcurl3", "libxslt1-dev", "libgeoip-dev", "e2fsprogs", "wget", "mcrypt", "nscd", "htop", "zip", "unzip", "mc", "python-paramiko", "mysql-server"]
@@ -87,11 +87,21 @@ def install(rType="MAIN"):
 
 def update(rType="MAIN"):
     printc("Enter the link of release_xyz.zip file:", col.WARNING)
-    rlink = raw_input('Example: https://xtream-ui.com/releases/release_22d.zip\n\nNow enter the link:\n\n')
-    try: rURL = rlink
+    rlink = raw_input('Example: https://xtream-ui.com/releases/release_22e.zip\n\nNow enter the link:\n\n')
+    hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36',
+       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+       'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+       'Accept-Encoding': 'none',
+       'Accept-Language': 'en-US,en;q=0.8',
+       'Connection': 'keep-alive'}
+    req = urllib2.Request(rlink, headers=hdr)
+    try:
+    	urllib2.urlopen(req)
     except:
         printc("Invalid download URL!", col.FAIL)
         return False
+    print "\n"
+    rURL = rlink
     print "\n"
     os.system('wget -q -O "/tmp/update.zip" "%s"' % rURL)
     if os.path.exists("/tmp/update.zip"):
@@ -246,7 +256,7 @@ if __name__ == "__main__":
         else: printc("Invalid entries", col.FAIL)
     elif rType.upper() == "UPDATE":
         if os.path.exists("/home/xtreamcodes/iptv_xtream_codes/wwwdir/api.php"):
-            printc("Update Admin Panel? Y or N?", col.WARNING)
+            printc("Update Admin Panel? Y/N?", col.WARNING)
             if raw_input("  ").upper() == "Y":
                 if not update(rType.upper()): sys.exit(1)
                 printc("Installation completed!", col.OKGREEN, 2)
