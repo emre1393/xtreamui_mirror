@@ -263,6 +263,13 @@ if __name__ == "__main__":
                     printc("Admin UI: http://%s:25500" % getIP())
                     printc("Admin UI default login is admin/admin")
                 rType = "UPDATE"
+                if os.path.exists("/home/xtreamcodes/iptv_xtream_codes/wwwdir/api.php"):
+                   printc("Update Admin Panel? Y/N?", col.WARNING)
+                   if raw_input("  ").upper() == "Y":
+                      if not update(rType.upper()): sys.exit(1)
+                      printc("Installation completed!", col.OKGREEN, 2)
+                      start()
+            else: printc("Install Xtream Codes Main first!", col.FAIL)
             else: printc("Installation cancelled", col.FAIL)
         else: printc("Invalid entries", col.FAIL)
     elif rType.upper() == "UPDATE":
