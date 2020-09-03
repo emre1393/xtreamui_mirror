@@ -8,13 +8,14 @@ Includes ginx 1.19.2 and php-fpm 7.2.33 compiled.
 ### THANKS ###
 
 Thanks to GTA for xtream-ui.
+
 Thanks to emre1393, who I stole everything (even this readme file) to make this Ubuntu 20.04 release possible.
 
 ### How do I install? ###
 
 update your ubuntu first, then install panel  
   
-* sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install libxslt1-dev libcurl3 libgeoip-dev python -y;  
+* sudo apt update && sudo apt full-upgrade -y && sudo apt install libxslt1-dev libcurl4 libgeoip-dev python -y;  
 * wget https://github.com/NeySlim/xtreamui_mirror/raw/master/install.py; 
 * sudo python install.py  
   
@@ -37,9 +38,6 @@ If you want to update admin panel, select UPDATE, then paste download link of re
 I forked this install.py is from https://xtream-ui.com/install/install.py  
 btw, developer removed admin part from original install.py at begining of this year.  
 you can compare my install.py with original one.
-
-Edit pytools/balancer.py to use "auto lb installer" from this mirror. auto lb installer added to panel with update    
-`sed -i 's|"https://xtream-ui.com/install/balancer.py"|"https://github.com/NeySlim/xtreamui_mirror/raw/raw/master/balancer.py"|g' /home/xtreamcodes/iptv_xtream_codes/pytools/balancer.py`  
 
 Developer made update releases open to public after r22c release, you can download them from https://xtream-ui.com.  
 i added an "UPDATE" part to install.py, it will ask link of update zip file.
