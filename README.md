@@ -36,7 +36,7 @@ If you want to update admin panel, select UPDATE.
 * 69a7a7f17a98def40f1a1c0de6e2f1d5de40e243  main_xtreamcodes_reborn.tar.gz
 * 6e9b3f7cd2510d1fecb62fa2b9986f1296a373b7  sub_xtreamcodes_reborn.tar.gz
 
-### notes from emre1393,
+### notes from emre1393:
 
 I forked this install.py is from https://xtream-ui.com/install/install.py  
 btw, developer removed admin part from original install.py at begining of this year.  
