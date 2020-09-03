@@ -52,7 +52,7 @@ def prepare(rType="MAIN"):
     os.system("apt update > /dev/null")
     os.system("apt install software-properties-common > /dev/null")
     os.system("apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 > /dev/null")
-    os.system("add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirror.lstn.net/mariadb/repo/10.5/ubuntu focal main > dev/null")
+    os.system("add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirror.lstn.net/mariadb/repo/10.5/ubuntu focal main' > dev/null")
     os.system("apt update > /dev/null")
     for rPackage in rPackages:
         printc("Installing %s" % rPackage)
