@@ -273,7 +273,7 @@ if __name__ == "__main__":
                       if not update(rType.upper()): sys.exit(1)
                       printc("Installation completed!", col.OKGREEN, 2)
                       start()
-            else: printc("Install Xtream Codes Main first!", col.FAIL)
+                else: printc("Install Xtream Codes Main first!", col.FAIL)
             else: printc("Installation cancelled", col.FAIL)
         else: printc("Invalid entries", col.FAIL)
     elif rType.upper() == "UPDATE":
