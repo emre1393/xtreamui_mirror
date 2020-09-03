@@ -1,9 +1,9 @@
 # README #
-# xui20
+# Xtream UI for Ubuntu 20.04 install
 
 This is an installation mirror for xtream ui software on Ubuntu 20.04.
 
-Includes ginx 1.19.2 and php-fpm 7.2.33 compiled.
+Includes nginx 1.19.2 and php 7.2.33.
 
 ### THANKS ###
 
