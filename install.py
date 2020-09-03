@@ -1,12 +1,12 @@
-#!/usr/bin/python
+!/usr/bin/python
 # -*- coding: utf-8 -*-
 import subprocess, os, random, string, sys, shutil, socket, zipfile, urllib2
 from itertools import cycle, izip
 from zipfile import ZipFile
 from urllib2 import Request, urlopen, URLError, HTTPError
 
-rDownloadURL = {"main": "https://github.com/NeySlim/xtreamui_mirror/raw/master/assets/main_xtreamcodes_reborn.tar.gz", "sub": "https://github.com/NeySlim/xtreamui_mirror/raw/master/assets/sub_xtreamcodes_reborn.tar.gz"}
-rPackages = ["libcurl4", "libxslt1-dev", "libgeoip-dev", "e2fsprogs", "wget", "mcrypt", "nscd", "htop", "zip", "unzip", "mc", "python-paramiko", "mariad-server"]
+rDownloadURL = {"main": "https://bitbucket.org/le_lio/assets/raw/master/main_xtreamcodes_reborn.tar.gz", "sub": "https://bitbucket.org/le_lio/assets/raw/master/sub_xtreamcodes_reborn.tar.gz"}
+rPackages = ["libcurl4", "libxslt1-dev", "libgeoip-dev", "e2fsprogs", "wget", "mcrypt", "nscd", "htop", "zip", "unzip", "mc", "python-paramiko", "mariadb-server"]
 rInstall = {"MAIN": "main", "LB": "sub"}
 rUpdate = {"UPDATE": "update"}
 rMySQLCnf = "IyBYdHJlYW0gQ29kZXMKCltjbGllbnRdCnBvcnQgICAgICAgICAgICA9IDMzMDYKCltteXNxbGRfc2FmZV0KbmljZSAgICAgICAgICAgID0gMAoKW215c3FsZF0KdXNlciAgICAgICAgICAgID0gbXlzcWwKcG9ydCAgICAgICAgICAgID0gNzk5OQpiYXNlZGlyICAgICAgICAgPSAvdXNyCmRhdGFkaXIgICAgICAgICA9IC92YXIvbGliL215c3FsCnRtcGRpciAgICAgICAgICA9IC90bXAKbGMtbWVzc2FnZXMtZGlyID0gL3Vzci9zaGFyZS9teXNxbApza2lwLWV4dGVybmFsLWxvY2tpbmcKc2tpcC1uYW1lLXJlc29sdmU9MQoKYmluZC1hZGRyZXNzICAgICAgICAgICAgPSAqCmtleV9idWZmZXJfc2l6ZSA9IDEyOE0KCm15aXNhbV9zb3J0X2J1ZmZlcl9zaXplID0gNE0KbWF4X2FsbG93ZWRfcGFja2V0ICAgICAgPSA2NE0KbXlpc2FtLXJlY292ZXItb3B0aW9ucyA9IEJBQ0tVUAptYXhfbGVuZ3RoX2Zvcl9zb3J0X2RhdGEgPSA4MTkyCnF1ZXJ5X2NhY2hlX2xpbWl0ICAgICAgID0gNE0KcXVlcnlfY2FjaGVfc2l6ZSAgICAgICAgPSAyNTZNCgoKZXhwaXJlX2xvZ3NfZGF5cyAgICAgICAgPSAxMAptYXhfYmlubG9nX3NpemUgICAgICAgICA9IDEwME0KCm1heF9leGVjdXRpb25fdGltZSA9IDAKdHJhbnNhY3Rpb25faXNvbGF0aW9uID0gUkVBRC1DT01NSVRURUQKCm1heF9jb25uZWN0aW9ucyAgPSAyMDAwMApiYWNrX2xvZyA9IDQwOTYKb3Blbl9maWxlc19saW1pdCA9IDIwMjQwCmlubm9kYl9vcGVuX2ZpbGVzID0gMjAyNDAKbWF4X2Nvbm5lY3RfZXJyb3JzID0gMzA3Mgp0YWJsZV9vcGVuX2NhY2hlID0gNDA5Ngp0YWJsZV9kZWZpbml0aW9uX2NhY2hlID0gNDA5NgoKCnRtcF90YWJsZV9zaXplID0gMUcKbWF4X2hlYXBfdGFibGVfc2l6ZSA9IDFHCgppbm5vZGJfYnVmZmVyX3Bvb2xfc2l6ZSA9IDEwRwppbm5vZGJfYnVmZmVyX3Bvb2xfaW5zdGFuY2VzID0gMTAKaW5ub2RiX3JlYWRfaW9fdGhyZWFkcyA9IDY0Cmlubm9kYl93cml0ZV9pb190aHJlYWRzID0gNjQKaW5ub2RiX3RocmVhZF9jb25jdXJyZW5jeSA9IDAKaW5ub2RiX2ZsdXNoX2xvZ19hdF90cnhfY29tbWl0ID0gMAppbm5vZGJfZmx1c2hfbWV0aG9kID0gT19ESVJFQ1QKcGVyZm9ybWFuY2Vfc2NoZW1hID0gMAppbm5vZGItZmlsZS1wZXItdGFibGUgPSAxCmlubm9kYl9pb19jYXBhY2l0eT0yMDAwMAppbm5vZGJfdGFibGVfbG9ja3MgPSAwCmlubm9kYl9sb2NrX3dhaXRfdGltZW91dCA9IDEwMAppbm5vZGJfZGVhZGxvY2tfZGV0ZWN0ID0gMAoKCnNxbC1tb2RlPSJOT19FTkdJTkVfU1VCU1RJVFVUSU9OIgoKW215c3FsZHVtcF0KcXVpY2sKcXVvdGUtbmFtZXMKbWF4X2FsbG93ZWRfcGFja2V0ICAgICAgPSAyNE0KY29tcGxldGUtaW5zZXJ0CgpbbXlzcWxdCgpbaXNhbWNoa10Ka2V5X2J1ZmZlcl9zaXplICAgICAgICAgICAgICA9IDE2TQ==".decode("base64")
@@ -54,7 +54,7 @@ def prepare(rType="MAIN"):
         printc("Installing %s" % rPackage)
         os.system("apt install %s -y > /dev/null" % rPackage)
     printc("Installing libpng")
-    os.system("wget -q -O /tmp/libpng12.deb https://github.com/NeySlim/xtreamui_mirror/raw/master/assets/libpng12-0_1.2.54-1ubuntu1_amd64.deb")
+    os.system("wget -q -O /tmp/libpng12.deb https://bitbucket.org/le_lio/assets/raw/master/libpng12-0_1.2.54-1ubuntu1_amd64.deb")
     os.system("dpkg -i /tmp/libpng12.deb > /dev/null")
     os.system("apt install -y > /dev/null") # Clean up above
     try: os.remove("/tmp/libpng12.deb")
@@ -86,8 +86,11 @@ def install(rType="MAIN"):
     return False
 
 def update(rType="MAIN"):
-    printc("Enter the link of release_xyz.zip file:", col.WARNING)
-    rlink = raw_input('Example: https://xtream-ui.com/releases/release_22f.zip\n\nNow enter the link:\n\n')
+    #printc("Enter the link of release_xyz.zip file:", col.WARNING)
+    #rlink = raw_input('Example: https://xtream-ui.com/releases/release_22f.zip\n\nNow enter the link:\n\n')
+###### removed to use newer balancer autoinstall
+
+    rlink ="https://bitbucket.org/le_lio/assets/raw/master/release_22f.zip" 
     hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36',
        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
        'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
@@ -189,8 +192,8 @@ def configure():
     if not os.path.exists("/home/xtreamcodes/iptv_xtream_codes/tv_archive"): os.mkdir("/home/xtreamcodes/iptv_xtream_codes/tv_archive/")
     os.system("ln -s /home/xtreamcodes/iptv_xtream_codes/bin/ffmpeg /usr/bin/")
     os.system("chattr -i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb > /dev/null")
-    os.system("wget -q https://github.com/NeySlim/xtreamui_mirror/raw/master/assets/GeoLite2.mmdb -O /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb")
-    os.system("wget -q https://github.com/NeySlim/xtreamui_mirror/raw/master/assets/pid_monitor.php -O /home/xtreamcodes/iptv_xtream_codes/crons/pid_monitor.php")
+    os.system("wget -q https://bitbucket.org/le_lio/assets/raw/master/GeoLite2.mmdb -O /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb")
+    os.system("wget -q https://bitbucket.org/le_lio/assets/raw/master/pid_monitor.php -O /home/xtreamcodes/iptv_xtream_codes/crons/pid_monitor.php")
     os.system("chown xtreamcodes:xtreamcodes -R /home/xtreamcodes > /dev/null")
     os.system("chmod -R 0777 /home/xtreamcodes > /dev/null")
     os.system("chattr +i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb > /dev/null")
