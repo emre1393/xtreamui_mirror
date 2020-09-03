@@ -14,10 +14,13 @@ Thanks to emre1393, who I stole everything (even this readme file) to make this 
 ### How do I install? ###
 
 update your ubuntu first, then install panel  
-  
-* sudo apt update && sudo apt full-upgrade -y && sudo apt install libxslt1-dev libcurl4 libgeoip-dev python -y;  
-* wget https://github.com/NeySlim/xtreamui_mirror/raw/master/install.py; 
-* sudo python install.py  
+ 
+
+``` 
+sudo apt update && sudo apt full-upgrade -y && sudo apt install python2 -y;  
+wget https://github.com/NeySlim/xtreamui_mirror/raw/master/install.py; 
+sudo python2 install.py  
+```
   
 If you want a whole NEW installation, choose MAIN and then UPDATE.  
 If you want to install load balance on additional servers, add a server to panel in manage servers page, then run script and proceed with LB option.  
