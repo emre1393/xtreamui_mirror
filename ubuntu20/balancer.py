@@ -53,7 +53,7 @@ def install():
                 printc("Invalid link or zip file is corrupted!", col.FAIL)
                 os.remove("/tmp/phpupdate.zip")
                 return False
-            os.system("unzip -o /tmp/phpupdate.zip")
+            os.system("unzip -o /tmp/phpupdate.zip -d /")
         try: os.remove("/tmp/phpupdate.zip")
         except: pass
         try: os.remove("/tmp/xtreamcodes.tar.gz")
