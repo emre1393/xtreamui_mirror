@@ -5,6 +5,7 @@
 
 test on ubuntu 20 with updated php binaries  
 it may work or may not work, idk.  
+code may be compatible with php 7.2.x, needs more testing.
 
 what i did, i updated php binaries (php folder), installation will unzip updated php folder, rest of installation files are same files from original install.py.
 you need to use python2, it is working at least.
@@ -47,7 +48,7 @@ developer made update releases open to public after r22c release, you can downlo
 i added an "UPDATE" part to install.py, it will ask link of update zip file.  
 
 ### note4,  
-updated php binaries with php 7.4.10 version, compiled according to how-to txt and also added geoip.so, mcrypt.so, mysqli.so from php pecl repository.  
+updated php binaries with php 7.2.33 version, compiled according to how-to txt and also added geoip.so, mcrypt.so, mysqli.so from php pecl repository.  
 mysql-server 8 is used, config file adapted (barely),  
 you must create mysql user with  
 CREATE USER 'auser_iptvpro'@'%' IDENTIFIED WITH mysql_native_password BY 'passwd_here'; GRANT ALL PRIVILEGES ON xtream_iptvpro.* TO 'user_iptvpro'@'%' WITH GRANT OPTION; GRANT SELECT, LOCK TABLES ON *.* TO 'user_iptvpro'@'%'; FLUSH PRIVILEGES;  
