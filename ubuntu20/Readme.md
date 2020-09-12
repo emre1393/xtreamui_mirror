@@ -1,14 +1,18 @@
-
-
 # README #
 # xtreamui_mirror for ubuntu 20
 
-test on ubuntu 20 with updated php binaries  
-it may work or may not work, idk.  
-code may be compatible with php 7.2.x, needs more testing.
+updated php binaries to make it work with ubuntu 20 and curl4.  
+i have compiled php 7.2 on ubuntu 18, installed panel, then runned make install command, it installed compiled binaries to panel's php folder.  
+then i zipped this php folder, deleted 3 conf that related for main server file from php/etc folder.  
+now if you want to update only php files (even on ubuntu 18), just unzip php_7.2.33_for_xc.zip and you will be ready to go.  
 
-what i did, i updated php binaries (php folder), installation will unzip updated php folder, rest of installation files are same files from original install.py.
-you need to use python2, it is working at least.
+added mysql server 8 (for ubuntu 20) and a working my.cnf with this install.py  
+added some sed commands to replace python commands with python2, yes python2 on ubuntu 20.  
+
+tested few basic things like live streams, user adding, watch stream on user side.  
+
+rest of files are same, main_xtreamcodes_reborn.tar and sub_xtreamcodes_reborn.tar are still same files from original install.py. i didn't want to add/change anything else, you must change other things if you wish.  
+
 
 ### How do I install? ###
 
@@ -48,7 +52,5 @@ developer made update releases open to public after r22c release, you can downlo
 i added an "UPDATE" part to install.py, it will ask link of update zip file.  
 
 ### note4,  
-updated php binaries with php 7.2.33 version, compiled according to how-to txt and also added geoip.so, mcrypt.so, mysqli.so from php pecl repository.  
-mysql-server 8 is used, config file adapted (barely),  
-you must create mysql user with  
-CREATE USER 'auser_iptvpro'@'%' IDENTIFIED WITH mysql_native_password BY 'passwd_here'; GRANT ALL PRIVILEGES ON xtream_iptvpro.* TO 'user_iptvpro'@'%' WITH GRANT OPTION; GRANT SELECT, LOCK TABLES ON *.* TO 'user_iptvpro'@'%'; FLUSH PRIVILEGES;  
+updated php binaries with php 7.2.33 version, compiled according to the how-to txt
+my.cnf config for mysql server 8
