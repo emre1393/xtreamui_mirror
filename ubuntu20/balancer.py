@@ -4,8 +4,8 @@ import subprocess, os, sys
 from itertools import cycle, izip
 
 rDownloadURL = "https://bitbucket.org/emre1393/xtreamui_mirror/downloads/sub_xtreamcodes_reborn.tar.gz"
-rPhpUpdate = "https://github.com/emre1393/xtreamui_mirror/raw/master/ubuntu20/php-7.4.10-for-xc.zip"
-rPackages = ["libcurl4", "curl", "libxslt1-dev", "libgeoip-dev", "e2fsprogs", "wget", "mcrypt", "nscd", "htop", "zip", "unzip", "mc"]
+rPhpUpdate = "https://github.com/emre1393/xtreamui_mirror/raw/master/ubuntu20/php_7.2.33_for_xc.zip"
+rPackages = ["libcurl4", "curl", "php-pear", "libxslt1-dev", "libgeoip-dev", "e2fsprogs", "wget", "mcrypt", "nscd", "htop", "zip", "unzip", "mc"]
 
 def getVersion():
     try: return subprocess.check_output("lsb_release -d".split()).split(":")[-1].strip()
