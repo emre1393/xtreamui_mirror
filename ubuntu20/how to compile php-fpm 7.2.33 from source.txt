@@ -2,7 +2,7 @@ how to compile php-fpm 7.2.33 from source, you must compile this in ubuntu 18
 
 sudo apt-get update && sudo apt-get upgrade -y
 
-sudo apt -y install build-essential nano net-tools autoconf re2c libgeoip-dev libfcgi-dev libgd3 libgd-dev libfcgi0ldbl libjpeg-turbo8-dev libmcrypt-dev libssl-dev pkg-config libc-client2007e libc-client2007e-dev libxml2-dev libbz2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev zlib1g-dev libsodium-dev libfreetype6-dev libkrb5-dev libpq-dev libxml2-dev libxslt1-dev libzip-dev libsqlite3-dev libonig-dev libzip-dev libmysqlclient-dev mysql-server php php-pear php-dev libbison-dev libfreetype6-dev libpng-dev libjpeg-dev libwebp-dev libxpm-dev
+sudo apt -y install build-essential nano net-tools autoconf re2c libgeoip-dev libfcgi-dev libgd3 libgd-dev libfcgi0ldbl libjpeg-turbo8-dev libmcrypt-dev libssl-dev pkg-config libc-client2007e libc-client2007e-dev libxml2-dev libbz2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev zlib1g-dev libsodium-dev libfreetype6-dev libkrb5-dev libpq-dev libxml2-dev libxslt1-dev libzip-dev libsqlite3-dev libonig-dev libmysqlclient-dev mysql-server php php-pear php-dev bison libbison-dev libfreetype6-dev libpng-dev libjpeg-dev libwebp-dev libxpm-dev
 
 
 sudo pecl channel-update pecl.php.net
@@ -20,7 +20,7 @@ wget https://www.php.net/distributions/php-7.2.33.tar.gz
 tar -xzvf php-7.2.33.tar.gz
 
 cd php-7.2.33
-./configure  --prefix=/home/xtreamcodes/iptv_xtream_codes/php --with-zlib-dir --with-pcre-dir  --enable-mbstring --enable-calendar --with-curl --with-mcrypt --with-gd --disable-rpath --enable-inline-optimization --with-bz2 --with-zlib --enable-sockets --enable-sysvsem --enable-sysvshm --enable-pcntl --enable-mbregex --enable-exif --enable-bcmath --with-mhash --enable-zip --with-pcre-regex --with-libzip --with-mysql=mysqlnd --with-pdo-mysql=mysqlnd --with-mysqli=mysqlnd --with-openssl --with-fpm-user=xtreamcodes --with-fpm-group=xtreamcodes --with-libdir=/lib/x86_64-linux-gnu --with-webp-dir=/usr/lib/x86_64-linux-gnu  --with-jpeg-dir=/usr/lib/x86_64-linux-gnu --with-xpm-dir=/usr/lib/x86_64-linux-gnu --with-png-dir=/usr/lib/x86_64-linux-gnu --with-freetype-dir --enable-gd-native-ttf --with-gettext --with-xmlrpc --with-xsl --enable-opcache --enable-fpm --enable-libxml --enable-static --disable-shared
+./configure  --prefix=/home/xtreamcodes/iptv_xtream_codes/php --with-zlib-dir --with-pcre-dir  --enable-mbstring --enable-calendar --with-curl --with-mcrypt --with-gd --disable-rpath --enable-inline-optimization --with-bz2 --with-zlib --enable-sockets --enable-sysvsem --enable-sysvshm --enable-pcntl --enable-mbregex --enable-exif --enable-bcmath --with-mhash --enable-zip --with-pcre-regex --with-mysql=mysqlnd --with-pdo-mysql=mysqlnd --with-mysqli=mysqlnd --with-openssl --with-fpm-user=xtreamcodes --with-fpm-group=xtreamcodes --with-libdir=/lib/x86_64-linux-gnu --with-freetype-dir --enable-gd-native-ttf --with-gettext --with-xmlrpc --with-xsl --enable-opcache --enable-fpm --enable-libxml --enable-static --disable-shared
 
 
 -compile,
