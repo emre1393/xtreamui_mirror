@@ -79,7 +79,7 @@ def install(rType="MAIN"):
     if os.path.exists("/tmp/xtreamcodes.tar.gz"):
         printc("Installing Software")
         os.system('tar -zxvf "/tmp/xtreamcodes.tar.gz" -C "/home/xtreamcodes/" > /dev/null')
-        printc("Downloading PHP 7.4 Update")
+        printc("Downloading PHP 7.2.33 Update")
         rPhplink = "%s" % rPhpUpdate
         hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -102,7 +102,7 @@ def install(rType="MAIN"):
                 printc("Invalid link or zip file is corrupted!", col.FAIL)
                 os.remove("/tmp/phpupdate.zip")
                 return False
-            printc("Installing PHP 7.4 Update")
+            printc("Installing PHP 7.2.33 Update")
             os.system("unzip -qq -o /tmp/phpupdate.zip -d /")
         try: os.remove("/tmp/phpupdate.zip")
         except: pass
