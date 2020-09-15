@@ -11,6 +11,7 @@ rInstall = {"MAIN": "main", "LB": "sub"}
 rUpdate = {"UPDATE": "update"}
 rPhpUpdate = "https://github.com/emre1393/xtreamui_mirror/raw/master/ubuntu20/php_7.2.33_for_xc.zip"
 rMySQLCnf = "IyBYdHJlYW0gQ29kZXMKCltjbGllbnRdCnBvcnQgICAgICAgICAgICA9IDMzMDYKCltteXNxbGRfc2FmZV0KbmljZSAgICAgICAgICAgID0gMAoKW215c3FsZF0KZGVmYXVsdC1hdXRoZW50aWNhdGlvbi1wbHVnaW49bXlzcWxfbmF0aXZlX3Bhc3N3b3JkCnVzZXIgICAgICAgICAgICA9IG15c3FsCnBvcnQgICAgICAgICAgICA9IDc5OTkKYmFzZWRpciAgICAgICAgID0gL3VzcgpkYXRhZGlyICAgICAgICAgPSAvdmFyL2xpYi9teXNxbAp0bXBkaXIgICAgICAgICAgPSAvdG1wCmxjLW1lc3NhZ2VzLWRpciA9IC91c3Ivc2hhcmUvbXlzcWwKc2tpcC1leHRlcm5hbC1sb2NraW5nCnNraXAtbmFtZS1yZXNvbHZlPTEKCmJpbmQtYWRkcmVzcyAgICAgICAgICAgID0gKgprZXlfYnVmZmVyX3NpemUgPSAxMjhNCgpteWlzYW1fc29ydF9idWZmZXJfc2l6ZSA9IDRNCm1heF9hbGxvd2VkX3BhY2tldCAgICAgID0gNjRNCm15aXNhbS1yZWNvdmVyLW9wdGlvbnMgPSBCQUNLVVAKbWF4X2xlbmd0aF9mb3Jfc29ydF9kYXRhID0gODE5MgoKYmlubG9nX2V4cGlyZV9sb2dzX3NlY29uZHMgPSA4NjQwMDAKbWF4X2JpbmxvZ19zaXplICAgICAgICAgPSAxMDBNCgptYXhfZXhlY3V0aW9uX3RpbWUgPSAwCnRyYW5zYWN0aW9uX2lzb2xhdGlvbiA9IFJFQUQtQ09NTUlUVEVECgptYXhfY29ubmVjdGlvbnMgID0gMTAwMDAKYmFja19sb2cgPSA0MDk2Cm9wZW5fZmlsZXNfbGltaXQgPSAxMDAwMAppbm5vZGJfb3Blbl9maWxlcyA9ODAwMAptYXhfY29ubmVjdF9lcnJvcnMgPSAzMDcyCnRhYmxlX29wZW5fY2FjaGUgPSA0MDk2CnRhYmxlX2RlZmluaXRpb25fY2FjaGUgPSA0MDk2CgoKdG1wX3RhYmxlX3NpemUgPSAxRwptYXhfaGVhcF90YWJsZV9zaXplID0gMUcKCmlubm9kYl9idWZmZXJfcG9vbF9zaXplID0gOEcKaW5ub2RiX2J1ZmZlcl9wb29sX2luc3RhbmNlcyA9IDE2Cmlubm9kYl9yZWFkX2lvX3RocmVhZHMgPSA2NAppbm5vZGJfd3JpdGVfaW9fdGhyZWFkcyA9IDY0Cmlubm9kYl90aHJlYWRfY29uY3VycmVuY3kgPSAwCmlubm9kYl9mbHVzaF9sb2dfYXRfdHJ4X2NvbW1pdCA9IDAKaW5ub2RiX2ZsdXNoX21ldGhvZCA9IE9fRElSRUNUCnBlcmZvcm1hbmNlX3NjaGVtYSA9IDAKaW5ub2RiLWZpbGUtcGVyLXRhYmxlID0gMQppbm5vZGJfaW9fY2FwYWNpdHk9MjAwMDAKaW5ub2RiX3RhYmxlX2xvY2tzID0gMAppbm5vZGJfbG9ja193YWl0X3RpbWVvdXQgPSAxMDAKaW5ub2RiX2RlYWRsb2NrX2RldGVjdCA9IDAKCgpzcWwtbW9kZT0iTk9fRU5HSU5FX1NVQlNUSVRVVElPTiIKCltteXNxbGR1bXBdCnF1aWNrCnF1b3RlLW5hbWVzCm1heF9hbGxvd2VkX3BhY2tldCAgICAgID0gMjRNCmNvbXBsZXRlLWluc2VydAoKW215c3FsXQoKW2lzYW1jaGtdCmtleV9idWZmZXJfc2l6ZSAgICAgICAgICAgICAgPSAxNk0=".decode("base64")
+rMySQLServiceFile = "IyBNeVNRTCBzeXN0ZW1kIHNlcnZpY2UgZmlsZQoKW1VuaXRdCkRlc2NyaXB0aW9uPU15U1FMIENvbW11bml0eSBTZXJ2ZXIKQWZ0ZXI9bmV0d29yay50YXJnZXQKCltJbnN0YWxsXQpXYW50ZWRCeT1tdWx0aS11c2VyLnRhcmdldAoKW1NlcnZpY2VdClR5cGU9bm90aWZ5ClVzZXI9bXlzcWwKR3JvdXA9bXlzcWwKUElERmlsZT0vcnVuL215c3FsZC9teXNxbGQucGlkClBlcm1pc3Npb25zU3RhcnRPbmx5PXRydWUKRXhlY1N0YXJ0UHJlPS91c3Ivc2hhcmUvbXlzcWwvbXlzcWwtc3lzdGVtZC1zdGFydCBwcmUKRXhlY1N0YXJ0PS91c3Ivc2Jpbi9teXNxbGQgLS1tYXgtZXhlY3V0aW9uLXRpbWU9MApFbnZpcm9ubWVudEZpbGU9LS9ldGMvbXlzcWwvbXlzcWxkClRpbWVvdXRTZWM9NjAwClJlc3RhcnQ9b24tZmFpbHVyZQpSdW50aW1lRGlyZWN0b3J5PW15c3FsZApSdW50aW1lRGlyZWN0b3J5TW9kZT03NTUKTGltaXROT0ZJTEU9MTAwMDAKCiMgU2V0IGVudmlyb21lbnQgdmFyaWFibGUgTVlTUUxEX1BBUkVOVF9QSUQuIFRoaXMgaXMgcmVxdWlyZWQgZm9yIHJlc3RhcnQuCkVudmlyb25tZW50PU1ZU1FMRF9QQVJFTlRfUElEPTE=".decode("base64")
 
 class col:
     HEADER = '\033[95m'
@@ -93,13 +94,12 @@ def install(rType="MAIN"):
         except:
             printc("Invalid download URL!", col.FAIL)
             return False
-        print "\n"
         rURL = rPhplink
         os.system('wget -q -O "/tmp/phpupdate.zip" "%s"' % rURL)
         if os.path.exists("/tmp/phpupdate.zip"):
             try: is_ok = zipfile.ZipFile("/tmp/phpupdate.zip")
             except:
-                printc("Invalid link or zip file is corrupted!", col.FAIL)
+                printc("Zip file is corrupted!", col.FAIL)
                 os.remove("/tmp/phpupdate.zip")
                 return False
             printc("Installing PHP 7.2.33 Update")
@@ -127,7 +127,6 @@ def update(rType="UPDATE"):
     except:
         printc("Invalid download URL!", col.FAIL)
         return False
-    print "\n"
     rURL = rlink
     printc("Installing python-paramiko")
     os.system("add-apt-repository universe > /dev/null && curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py --silent > /dev/null && python2 get-pip.py > /dev/null && yes | pip2 install paramiko > /dev/null")
@@ -184,7 +183,7 @@ def mysql(rUsername, rPassword):
                 if not os.path.exists("/etc/mysql/mysqld"):
                     os.system('echo "LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2" > /etc/mysql/mysqld')
                     if not "EnvironmentFile=-/etc/mysql/mysqld" in open("/lib/systemd/system/mysql.service").read(): 
-                        os.system("sed -i 's|ExecStart=/usr/sbin/mysqld|ExecStart=/usr/sbin/mysqld --max-execution-time=0\nEnvironmentFile=-/etc/mysql/mysqld|g' /lib/systemd/system/mysql.service")
+                        os.system('echo "%s" > /lib/systemd/system/mysql.service' % rMySQLServiceFile)
                         os.system('systemctl daemon-reload; systemctl restart mysql.service;')
             try: os.remove("/home/xtreamcodes/iptv_xtream_codes/database.sql")
             except: pass
