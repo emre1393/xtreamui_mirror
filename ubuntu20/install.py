@@ -184,7 +184,7 @@ def mysql(rUsername, rPassword):
                 if not os.path.exists("/etc/mysql/mysqld"):
                     os.system('echo "LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2" > /etc/mysql/mysqld')
                     if not "EnvironmentFile=-/etc/mysql/mysqld" in open("/lib/systemd/system/mysql.service").read(): 
-                        os.system("sed -i 's|ExecStart=/usr/sbin/mysqld|ExecStart=/usr/sbin/mysqld\nEnvironmentFile=-/etc/mysql/mysqld|g' /lib/systemd/system/mysql.service")
+                        os.system("sed -i 's|ExecStart=/usr/sbin/mysqld|ExecStart=/usr/sbin/mysqld --max-execution-time=0\nEnvironmentFile=-/etc/mysql/mysqld|g' /lib/systemd/system/mysql.service")
                         os.system('systemctl daemon-reload; systemctl restart mysql.service;')
             try: os.remove("/home/xtreamcodes/iptv_xtream_codes/database.sql")
             except: pass
