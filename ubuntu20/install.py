@@ -6,7 +6,7 @@ from zipfile import ZipFile
 from urllib2 import Request, urlopen, URLError, HTTPError
 
 rDownloadURL = {"main": "https://bitbucket.org/emre1393/xtreamui_mirror/downloads/main_xtreamcodes_reborn.tar.gz", "sub": "https://bitbucket.org/emre1393/xtreamui_mirror/downloads/sub_xtreamcodes_reborn.tar.gz"}
-rPackages = ["libcurl4", "curl", "php-pear", "libxslt1-dev", "libgeoip-dev", "e2fsprogs", "wget", "mcrypt", "nscd", "htop", "zip", "unzip", "mc", "mysql-server"]
+rPackages = ["libcurl4", "curl", "php-pear", "libxslt1-dev", "libgeoip-dev", "e2fsprogs", "wget", "mcrypt", "nscd", "htop", "zip", "unzip", "mc", "libjemalloc2", "mysql-server"]
 rInstall = {"MAIN": "main", "LB": "sub"}
 rUpdate = {"UPDATE": "update"}
 rPhpUpdate = "https://github.com/emre1393/xtreamui_mirror/raw/master/ubuntu20/php_7.2.33_for_xc.zip"
@@ -44,7 +44,7 @@ def printc(rText, rColour=col.OKBLUE, rPadding=0):
 
 def prepare(rType="MAIN"):
     global rPackages
-    if rType <> "MAIN": rPackages = rPackages[:-1]
+    if rType <> "MAIN": rPackages = rPackages[:-2]
     printc("Preparing Installation")
     for rFile in ["/var/lib/dpkg/lock-frontend", "/var/cache/apt/archives/lock", "/var/lib/dpkg/lock"]:
         try: os.remove(rFile)
@@ -132,7 +132,6 @@ def update(rType="UPDATE"):
     printc("Installing python-paramiko")
     os.system("add-apt-repository universe > /dev/null && curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py --silent > /dev/null && python2 get-pip.py > /dev/null && yes | pip2 install paramiko > /dev/null")
     printc("Downloading Software Update")  
-    print "\n"
     os.system('wget -q -O "/tmp/update.zip" "%s"' % rURL)
     if os.path.exists("/tmp/update.zip"):
         try: is_ok = zipfile.ZipFile("/tmp/update.zip")
@@ -182,6 +181,11 @@ def mysql(rUsername, rPassword):
                 os.system('mysql -u root%s -e "USE xtream_iptvpro; REPLACE INTO reg_users (id, username, password, email, member_group_id, verified, status) VALUES (1, \'admin\', \'\$6\$rounds=20000\$xtreamcodes\$XThC5OwfuS0YwS4ahiifzF14vkGbGsFF1w7ETL4sRRC5sOrAWCjWvQJDromZUQoQuwbAXAFdX3h3Cp3vqulpS0\', \'admin@website.com\', 1, 1, 1);" > /dev/null'  % rExtra)
                 os.system('mysql -u root%s -e "CREATE USER \'%s\'@\'%%\' IDENTIFIED WITH mysql_native_password BY \'%s\'; GRANT ALL PRIVILEGES ON xtream_iptvpro.* TO \'%s\'@\'%%\' WITH GRANT OPTION; GRANT SELECT, LOCK TABLES ON *.* TO \'%s\'@\'%%\'; FLUSH PRIVILEGES;" > /dev/null' % (rExtra, rUsername, rPassword, rUsername, rUsername))
                 os.system('mysql -u root%s -e "USE xtream_iptvpro; CREATE TABLE IF NOT EXISTS dashboard_statistics (id int(11) NOT NULL AUTO_INCREMENT, type varchar(16) NOT NULL DEFAULT \'\', time int(16) NOT NULL DEFAULT \'0\', count int(16) NOT NULL DEFAULT \'0\', PRIMARY KEY (id)) ENGINE=InnoDB DEFAULT CHARSET=latin1; INSERT INTO dashboard_statistics (type, time, count) VALUES(\'conns\', UNIX_TIMESTAMP(), 0),(\'users\', UNIX_TIMESTAMP(), 0);\" > /dev/null' % rExtra)
+                if not os.path.exists("/etc/mysql/mysqld"):
+                    os.system('echo "LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2" > /etc/mysql/mysqld')
+                    if not "EnvironmentFile=-/etc/mysql/mysqld" in open("/lib/systemd/system/mysql.service").read(): 
+                        os.system("sed -i 's|ExecStart=/usr/sbin/mysqld|ExecStart=/usr/sbin/mysqld\nEnvironmentFile=-/etc/mysql/mysqld|g' /lib/systemd/system/mysql.service")
+                        os.system('systemctl daemon-reload; systemctl restart mysql.service;')
             try: os.remove("/home/xtreamcodes/iptv_xtream_codes/database.sql")
             except: pass
             return True
