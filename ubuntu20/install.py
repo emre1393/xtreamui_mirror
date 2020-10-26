@@ -118,7 +118,7 @@ def update(rType="MAIN"):
         rlink = raw_input('Example: https://bitbucket.org/emre1393/xtreamui_mirror/downloads/release_22f.zip\n\nNow enter the link:\n\n')
     else:
         rlink = "https://bitbucket.org/emre1393/xtreamui_mirror/downloads/release_22f.zip"
-        printc("Installing Admin Panel with %s" % rlink)
+        printc("Installing Admin Panel")
     hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36',
        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
        'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
@@ -258,9 +258,10 @@ def modifyNginx():
         rFile.close()
 
 if __name__ == "__main__":
-    printc("Xtream Codes Reborn BETA - Installer", col.OKGREEN, 2)
+    printc("Xtream UI - Installer Mirror", col.OKGREEN, 2)
     print "%s │ NOTE: this is a forked mirror of original installer from https://xtream-ui.com/install/install.py %s" % (col.OKGREEN, col.ENDC)
-    print "%s │ Check out the mirror repo: https://bitbucket.org/emre1393/xtreamui_mirror/ and https://github.com/emre1393/xtreamui_mirror %s" % (col.OKGREEN, col.ENDC)
+    print "%s │ Check out the mirror repo: https://bitbucket.org/emre1393/xtreamui_mirror %s" % (col.OKGREEN, col.ENDC)
+    print "%s │ and https://github.com/emre1393/xtreamui_mirror %s" % (col.OKGREEN, col.ENDC)
     print " "
     rType = raw_input("  Installation Type [MAIN, LB, UPDATE]: ")
     print " "

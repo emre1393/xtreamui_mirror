@@ -22,7 +22,7 @@ update your ubuntu first, then install panel
 * wget https://github.com/emre1393/xtreamui_mirror/raw/master/ubuntu20/install.py; 
 * sudo python2 install.py  
   
-If you want a whole NEW installation, choose MAIN and then UPDATE.  
+If you want to install main server with admin panel, choose MAIN.  
 If you want to install load balance on additional servers, add a server to panel in manage servers page, then run script and proceed with LB option.  
 If you want to update admin panel, select UPDATE, then paste download link of release_xyz.zip file.  
 
@@ -41,9 +41,11 @@ If you want to update admin panel, select UPDATE, then paste download link of re
 * php_7.2.33_for_xc.zip (12.09.2020 17:18)  
 * sha1: "740C4081953CECA415E988CCDB505B219FC11247"
 
+* release_22f.zip
+* sha-1: "95471A7EFEB49D7A1F52BAB683EA2BF849F79983"
+
 ### note,
 i forked this install.py is from https://xtream-ui.com/install/install.py  
-btw, developer removed admin part from original install.py at begining of this year.  
 you can compare my install.py with original one.
 
 ### note2,
