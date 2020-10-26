@@ -88,8 +88,12 @@ def install(rType="MAIN"):
     return False
 
 def update(rType="MAIN"):
-    printc("Enter the link of release_xyz.zip file:", col.WARNING)
-    rlink = raw_input('Example: https://xtream-ui.com/releases/release_22f.zip\n\nNow enter the link:\n\n')
+    if rType == "UPDATE":
+        printc("Enter the link of release_xyz.zip file:", col.WARNING)
+        rlink = raw_input('Example: https://bitbucket.org/emre1393/xtreamui_mirror/downloads/release_22f.zip\n\nNow enter the link:\n\n')
+    else:
+        rlink = "https://bitbucket.org/emre1393/xtreamui_mirror/downloads/release_22f.zip"
+        printc("Installing Admin Panel with %s" % rlink)
     hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36',
        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
        'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
@@ -102,10 +106,8 @@ def update(rType="MAIN"):
     except:
         printc("Invalid download URL!", col.FAIL)
         return False
-    print "\n"
     rURL = rlink
     printc("Downloading Software Update")  
-    print "\n"
     os.system('wget -q -O "/tmp/update.zip" "%s"' % rURL)
     if os.path.exists("/tmp/update.zip"):
         try: is_ok = zipfile.ZipFile("/tmp/update.zip")
@@ -114,7 +116,7 @@ def update(rType="MAIN"):
             os.remove("/tmp/update.zip")
             return False
         printc("Updating Software")
-        os.system('chattr -i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb > /dev/null && rm -rf /home/xtreamcodes/iptv_xtream_codes/admin > /dev/null && rm -rf /home/xtreamcodes/iptv_xtream_codes/pytools > /dev/null && unzip /tmp/update.zip -d /tmp/update/ > /dev/null && cp -rf /tmp/update/XtreamUI-master/* /home/xtreamcodes/iptv_xtream_codes/ > /dev/null && rm -rf /tmp/update/XtreamUI-master > /dev/null && rm -rf /tmp/update > /dev/null && chown -R xtreamcodes:xtreamcodes /home/xtreamcodes/ > /dev/null && chmod +x /home/xtreamcodes/iptv_xtream_codes/permissions.sh > /dev/null && chattr +i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb > /dev/null')
+        os.system('chattr -i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb > /dev/null && rm -rf /home/xtreamcodes/iptv_xtream_codes/admin > /dev/null && rm -rf /home/xtreamcodes/iptv_xtream_codes/pytools > /dev/null && unzip /tmp/update.zip -d /tmp/update/ > /dev/null && cp -rf /tmp/update/XtreamUI-master/* /home/xtreamcodes/iptv_xtream_codes/ > /dev/null && rm -rf /tmp/update/XtreamUI-master > /dev/null && rm -rf /tmp/update > /dev/null && wget -q https://bitbucket.org/emre1393/xtreamui_mirror/downloads/GeoLite2.mmdb -O /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb && chown -R xtreamcodes:xtreamcodes /home/xtreamcodes/ > /dev/null && chmod +x /home/xtreamcodes/iptv_xtream_codes/permissions.sh > /dev/null && chattr +i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb > /dev/null')
         if not "sudo chmod 400 /home/xtreamcodes/iptv_xtream_codes/config" in open("/home/xtreamcodes/iptv_xtream_codes/permissions.sh").read(): os.system('echo "#!/bin/bash\nsudo chmod -R 777 /home/xtreamcodes 2>/dev/null\nsudo find /home/xtreamcodes/iptv_xtream_codes/admin/ -type f -exec chmod 644 {} \; 2>/dev/null\nsudo find /home/xtreamcodes/iptv_xtream_codes/admin/ -type d -exec chmod 755 {} \; 2>/dev/null\nsudo find /home/xtreamcodes/iptv_xtream_codes/wwwdir/ -type f -exec chmod 644 {} \; 2>/dev/null\nsudo find /home/xtreamcodes/iptv_xtream_codes/wwwdir/ -type d -exec chmod 755 {} \; 2>/dev/null\nsudo chmod +x /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx 2>/dev/null\nsudo chmod +x /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/nginx_rtmp 2>/dev/null\nsudo chmod 400 /home/xtreamcodes/iptv_xtream_codes/config 2>/dev/null" > /home/xtreamcodes/iptv_xtream_codes/permissions.sh')
         os.system("/home/xtreamcodes/iptv_xtream_codes/permissions.sh > /dev/null")
         try: os.remove("/tmp/update.zip")
@@ -227,9 +229,10 @@ def modifyNginx():
         rFile.close()
 
 if __name__ == "__main__":
-    printc("Xtream Codes Reborn BETA - Installer", col.OKGREEN, 2)
+    printc("Xtream UI - Installer Mirror", col.OKGREEN, 2)
     print "%s │ NOTE: this is a forked mirror of original installer from https://xtream-ui.com/install/install.py %s" % (col.OKGREEN, col.ENDC)
-    print "%s │ Check out the mirror repo: https://bitbucket.org/emre1393/xtreamui_mirror/ and https://github.com/emre1393/xtreamui_mirror %s" % (col.OKGREEN, col.ENDC)
+    print "%s │ Check out the mirror repo: https://bitbucket.org/emre1393/xtreamui_mirror %s" % (col.OKGREEN, col.ENDC)
+    print "%s │ and https://github.com/emre1393/xtreamui_mirror %s" % (col.OKGREEN, col.ENDC)
     print " "
     rType = raw_input("  Installation Type [MAIN, LB, UPDATE]: ")
     print " "
@@ -257,7 +260,9 @@ if __name__ == "__main__":
                     if not mysql(rUsername, rPassword): sys.exit(1)
                 encrypt(rHost, rUsername, rPassword, rDatabase, rServerID, rPort)
                 configure()
-                if rType.upper() == "MAIN": modifyNginx()
+                if rType.upper() == "MAIN": 
+                    modifyNginx()
+                    update(rType.upper())
                 start()
                 printc("Installation completed!", col.OKGREEN, 2)
                 if rType.upper() == "MAIN":

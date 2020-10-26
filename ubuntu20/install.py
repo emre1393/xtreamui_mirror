@@ -112,9 +112,13 @@ def install(rType="MAIN"):
     printc("Failed to download installation file!", col.FAIL)
     return False
 
-def update(rType="UPDATE"):
-    printc("Enter the link of release_xyz.zip file:", col.WARNING)
-    rlink = raw_input('Example: https://xtream-ui.com/releases/release_22f.zip\n\nNow enter the link:\n\n')
+def update(rType="MAIN"):
+    if rType == "UPDATE":
+        printc("Enter the link of release_xyz.zip file:", col.WARNING)
+        rlink = raw_input('Example: https://bitbucket.org/emre1393/xtreamui_mirror/downloads/release_22f.zip\n\nNow enter the link:\n\n')
+    else:
+        rlink = "https://bitbucket.org/emre1393/xtreamui_mirror/downloads/release_22f.zip"
+        printc("Installing Admin Panel with %s" % rlink)
     hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36',
        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
        'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
@@ -139,7 +143,7 @@ def update(rType="UPDATE"):
             os.remove("/tmp/update.zip")
             return False
         printc("Updating Software")
-        os.system('chattr -i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb > /dev/null && rm -rf /home/xtreamcodes/iptv_xtream_codes/admin > /dev/null && rm -rf /home/xtreamcodes/iptv_xtream_codes/pytools > /dev/null && unzip -o /tmp/update.zip -d /tmp/update/ > /dev/null && cp -rf /tmp/update/XtreamUI-master/* /home/xtreamcodes/iptv_xtream_codes/ > /dev/null && rm -rf /tmp/update/XtreamUI-master > /dev/null && rm -rf /tmp/update > /dev/null && chown -R xtreamcodes:xtreamcodes /home/xtreamcodes/ > /dev/null && chmod +x /home/xtreamcodes/iptv_xtream_codes/permissions.sh > /dev/null && chattr +i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb > /dev/null')
+        os.system('chattr -i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb > /dev/null && rm -rf /home/xtreamcodes/iptv_xtream_codes/admin > /dev/null && rm -rf /home/xtreamcodes/iptv_xtream_codes/pytools > /dev/null && unzip -o /tmp/update.zip -d /tmp/update/ > /dev/null && cp -rf /tmp/update/XtreamUI-master/* /home/xtreamcodes/iptv_xtream_codes/ > /dev/null && rm -rf /tmp/update/XtreamUI-master > /dev/null && rm -rf /tmp/update > /dev/null && wget -q https://bitbucket.org/emre1393/xtreamui_mirror/downloads/GeoLite2.mmdb -O /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb > /dev/null && chown -R xtreamcodes:xtreamcodes /home/xtreamcodes/ > /dev/null && chmod +x /home/xtreamcodes/iptv_xtream_codes/permissions.sh > /dev/null && chattr +i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb > /dev/null')
         if not "sudo chmod 400 /home/xtreamcodes/iptv_xtream_codes/config" in open("/home/xtreamcodes/iptv_xtream_codes/permissions.sh").read(): os.system('echo "#!/bin/bash\nsudo chmod -R 777 /home/xtreamcodes 2>/dev/null\nsudo find /home/xtreamcodes/iptv_xtream_codes/admin/ -type f -exec chmod 644 {} \; 2>/dev/null\nsudo find /home/xtreamcodes/iptv_xtream_codes/admin/ -type d -exec chmod 755 {} \; 2>/dev/null\nsudo find /home/xtreamcodes/iptv_xtream_codes/wwwdir/ -type f -exec chmod 644 {} \; 2>/dev/null\nsudo find /home/xtreamcodes/iptv_xtream_codes/wwwdir/ -type d -exec chmod 755 {} \; 2>/dev/null\nsudo chmod +x /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx 2>/dev/null\nsudo chmod +x /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/nginx_rtmp 2>/dev/null\nchmod -R 0644 /home/xtreamcodes/iptv_xtream_codes/php/*.pid\nsudo chmod 400 /home/xtreamcodes/iptv_xtream_codes/config 2>/dev/null" > /home/xtreamcodes/iptv_xtream_codes/permissions.sh')
         os.system("sed -i 's|/usr/bin/python|/usr/bin/python2|g' /home/xtreamcodes/iptv_xtream_codes/admin/functions.php && sed -i 's|/usr/bin/python|/usr/bin/python2|g' /home/xtreamcodes/iptv_xtream_codes/crons/balancer.php && sed -i 's|python|python2|g' /home/xtreamcodes/iptv_xtream_codes/pytools/balancer.py && sed -i 's|/usr/bin/env python|/usr/bin/env python2.7|g' /home/xtreamcodes/iptv_xtream_codes/pytools/PTN/*.py")  #for python2
         os.system("/home/xtreamcodes/iptv_xtream_codes/permissions.sh > /dev/null")
@@ -284,7 +288,9 @@ if __name__ == "__main__":
                     if not mysql(rUsername, rPassword): sys.exit(1)
                 encrypt(rHost, rUsername, rPassword, rDatabase, rServerID, rPort)
                 configure()
-                if rType.upper() == "MAIN": modifyNginx()
+                if rType.upper() == "MAIN": 
+                    modifyNginx()
+                    update(rType.upper())
                 start()
                 printc("Installation completed!", col.OKGREEN, 2)
                 if rType.upper() == "MAIN":
