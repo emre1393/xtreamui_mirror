@@ -2,9 +2,8 @@
 # xtreamui_mirror for ubuntu 20
 
 * updated php binaries to make it work with ubuntu 20 and curl4.  
-i have compiled php 7.2 on ubuntu 18, installed panel, then runned make install command, it installed compiled binaries to panel's php folder.  
-then i zipped this php folder, deleted 3 conf that related for main server file from php/etc folder.  
-now if you want to update only php files (even on ubuntu 18), just unzip php_7.2.33_for_xc.zip and you will be ready to go.  
+---compiled on ubuntu 18, used 'make install' command and took php folder. deleted 3 config files related with main server.
+now, if you want to update only php files (even on ubuntu 18), just unzip php_7.2.33_for_xc.zip and you will be ready to go.  
 
 * added mysql server 8 (for ubuntu 20) and a working my.cnf with this install.py  
 * added some sed commands to replace python commands with python2, yes python2 on ubuntu 20.  
