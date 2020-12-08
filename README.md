@@ -1,21 +1,19 @@
-# README #
 # Xtream UI for Ubuntu 20.04 install
-
 This is an installation mirror for xtream ui software on Ubuntu 20.04.
+Includes NGINX 1.19.2 and PHP 7.3.25.
 
-Includes nginx 1.19.2 and php 7.2.33.
+### Update 08/12/2020: ###
+- bumped php version from 7.2 to 7.3 following 7.2 obsolence
+- fixed user_watcher.php disconnect users every minute because of wrong pid check.
 
 ### THANKS ###
 
-Thanks to GTA for xtream-ui.
+Thanks to GTA for xtream-ui admin original interface
+Thanks to emre1393 for being the wisdom of xui community
 
-Thanks to emre1393, who I stole everything (even this readme file) to make this Ubuntu 20.04 release possible.
+### Installation: ###
 
-### How do I install? ###
-
-update your ubuntu first, then install panel  
- 
-
+Update your ubuntu first, then install panel:
 ``` 
 sudo apt update && sudo apt full-upgrade -y && sudo apt install python2 -y;  
 wget https://github.com/NeySlim/xtreamui_mirror/raw/master/install.py; 
@@ -30,11 +28,6 @@ If you want to update admin panel, select UPDATE.
 
 [Xtream-UI Tutorials](https://www.youtube.com/playlist?list=PLJB51brdC_w7dTDxi1MPqiuk3JH5U2ekn "Xtream-UI Tutorials")
 
-
-### Files sha1 Hashes ###
-
-* 69a7a7f17a98def40f1a1c0de6e2f1d5de40e243  main_xtreamcodes_reborn.tar.gz
-* 6e9b3f7cd2510d1fecb62fa2b9986f1296a373b7  sub_xtreamcodes_reborn.tar.gz
 
 ### notes from emre1393:
 
