@@ -225,7 +225,7 @@ def modifyNginx():
         rFile.close()
 
 if __name__ == "__main__":
-    printc("Xtream UI Mods Ubuntu 20.04 Installer\nBy NeySlim 2020", col.OKGREEN, 2)
+    printc("X-UI 22f Mods Ubuntu 20.04 Installer - NeySlim", col.OKGREEN, 2)
     
     print " "
     rType = raw_input("  Installation Type [MAIN, LB, ADMIN]: ")
