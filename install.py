@@ -58,7 +58,7 @@ def prepare(rType="MAIN"):
         printc("Installing %s" % rPackage)
         os.system("apt-get install %s -y > /dev/null" % rPackage)
     printc("Installing pip2 and python2 paramiko")
-    os.system("add-apt-repository universe > /dev/null && curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py > /dev/null && python2 get-pip.py > /dev/null && pip2 install paramiko > /dev/null")
+    os.system("add-apt-repository universe > /dev/null 2>&1 && curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py > /dev/null 2>&1 && python2 get-pip.py > /dev/null 2>&1 && pip2 install paramiko > /dev/null 2>&1")
     printc("Installing libpng12")
     os.system("add-apt-repository ppa:linuxuprising/libpng12 -y > /dev/null && apt-get update > /dev/null")
     os.system("apt-get install libpng12-0 > /dev/null")
