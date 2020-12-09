@@ -2,6 +2,9 @@
 This is an installation mirror for xtream ui software on Ubuntu 20.04.
 Includes NGINX 1.19.2 and PHP 7.3.25.
 
+### Update 09/12/2020: ###
+- converted installer for use with Python3
+
 ### Update 08/12/2020: ###
 - bumped php version from 7.2 to 7.3 following 7.2 obsolence
 - fixed user_watcher.php disconnect users every minute because of wrong pid check.
@@ -15,9 +18,9 @@ Thanks to emre1393 for being the wisdom of xui community
 
 Update your ubuntu first, then install panel:
 ``` 
-sudo apt update && sudo apt full-upgrade -y && sudo apt install curl python2 -y;  
-wget https://github.com/NeySlim/xtreamui_mirror/raw/master/install.py; 
-sudo python2 install.py  
+sudo apt update && sudo apt full-upgrade -y;  
+wget https://raw.githubusercontent.com/Kick4U2/xtreamui_mirror/python2to3/install.py; 
+sudo python3 install.py  
 ```
   
 If you want a whole NEW installation, choose MAIN and then UPDATE.  
