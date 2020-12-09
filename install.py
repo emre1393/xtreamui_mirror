@@ -44,13 +44,14 @@ def prepare(rType="MAIN"):
     global rPackages
     if rType <> "MAIN": rPackages = rPackages[:-3]
     printc("Preparing Installation")
+    os.system('chattr -i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb > /dev/null')
     for rFile in ["/var/lib/dpkg/lock-frontend", "/var/cache/apt/archives/lock", "/var/lib/dpkg/lock"]:
         try: os.remove(rFile)
         except: pass
     os.system("apt-get update > /dev/null")
     printc("Install MariaDB 10.5 repository")
     os.system("apt-get install software-properties-common > /dev/null")
-    os.system("{ apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 } &>/dev/null")
+    os.system("apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 >/dev/null 2>&1")
     os.system("add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirror.lstn.net/mariadb/repo/10.5/ubuntu focal main'  > /dev/null")
     os.system("apt-get update > /dev/null")
     for rPackage in rPackages:
