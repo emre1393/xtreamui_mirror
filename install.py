@@ -25,8 +25,8 @@ class col:
 def generate(length=19): return ''.join(random.choice(string.ascii_letters + string.digits) for i in range(length))
 
 def getIP():
-    ip = get('https://api.ipify.org').text
-    return format(ip)
+    ip = urlopen('http://ip.42.pl/raw').read()
+    return ip
 
 def getVersion():
     try: return subprocess.check_output("lsb_release -d".split()).split(":")[-1].strip()
@@ -50,7 +50,7 @@ def prepare(rType="MAIN"):
     os.system("apt-get update > /dev/null")
     printc("Install MariaDB 10.5 repository")
     os.system("apt-get install software-properties-common > /dev/null")
-    os.system("apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 > /dev/null")
+    os.system("{ apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 } &>/dev/null")
     os.system("add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirror.lstn.net/mariadb/repo/10.5/ubuntu focal main'  > /dev/null")
     os.system("apt-get update > /dev/null")
     for rPackage in rPackages:
