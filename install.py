@@ -1,15 +1,16 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
-import subprocess, os, random, string, sys, shutil, socket, zipfile, urllib2
-from itertools import cycle, izip
+import subprocess, os, random, string, sys, shutil, socket, zipfile, urllib.request, urllib.error, urllib.parse
+from itertools import cycle
 from zipfile import ZipFile
-from urllib2 import Request, urlopen, URLError, HTTPError
+from urllib.request import Request, urlopen
+from urllib.error import URLError, HTTPError
 
 rDownloadURL = {"main": "https://bitbucket.org/le_lio/assets/raw/master/main_xtreamcodes_reborn.tar.gz", "sub": "https://bitbucket.org/le_lio/assets/raw/master/sub_xtreamcodes_reborn.tar.gz"}
-rPackages = ["curl", "libcurl4", "libxslt1-dev", "libgeoip-dev", "e2fsprogs", "wget", "mcrypt", "nscd", "htop", "zip", "unzip", "mc", "mariadb-server", "libzip5"]
+rPackages = ["curl", "libcurl4", "libxslt1-dev", "libgeoip-dev", "e2fsprogs", "wget", "mcrypt", "nscd", "htop", "zip", "unzip", "mc", "mariadb-server", "libzip5", "python3-pip"]
 rInstall = {"MAIN": "main", "LB": "sub"}
 rUpdate = {"UPDATE": "update"}
-rMySQLCnf = "IyBYdHJlYW0gQ29kZXMKCltjbGllbnRdCnBvcnQgICAgICAgICAgICA9IDMzMDYKCltteXNxbGRfc2FmZV0KbmljZSAgICAgICAgICAgID0gMAoKW215c3FsZF0KdXNlciAgICAgICAgICAgID0gbXlzcWwKcG9ydCAgICAgICAgICAgID0gNzk5OQpiYXNlZGlyICAgICAgICAgPSAvdXNyCmRhdGFkaXIgICAgICAgICA9IC92YXIvbGliL215c3FsCnRtcGRpciAgICAgICAgICA9IC90bXAKbGMtbWVzc2FnZXMtZGlyID0gL3Vzci9zaGFyZS9teXNxbApza2lwLWV4dGVybmFsLWxvY2tpbmcKc2tpcC1uYW1lLXJlc29sdmU9MQoKYmluZC1hZGRyZXNzICAgICAgICAgICAgPSAqCmtleV9idWZmZXJfc2l6ZSA9IDEyOE0KCm15aXNhbV9zb3J0X2J1ZmZlcl9zaXplID0gNE0KbWF4X2FsbG93ZWRfcGFja2V0ICAgICAgPSA2NE0KbXlpc2FtLXJlY292ZXItb3B0aW9ucyA9IEJBQ0tVUAptYXhfbGVuZ3RoX2Zvcl9zb3J0X2RhdGEgPSA4MTkyCnF1ZXJ5X2NhY2hlX2xpbWl0ICAgICAgID0gNE0KcXVlcnlfY2FjaGVfc2l6ZSAgICAgICAgPSAwCnF1ZXJ5X2NhY2hlX3R5cGUJPSAwCgpleHBpcmVfbG9nc19kYXlzICAgICAgICA9IDEwCm1heF9iaW5sb2dfc2l6ZSAgICAgICAgID0gMTAwTQoKbWF4X2Nvbm5lY3Rpb25zICA9IDIwMDAgI3JlY29tbWVuZGVkIGZvciAxNkdCIHJhbSAKYmFja19sb2cgPSA0MDk2Cm9wZW5fZmlsZXNfbGltaXQgPSAxNjM4NAppbm5vZGJfb3Blbl9maWxlcyA9IDE2Mzg0Cm1heF9jb25uZWN0X2Vycm9ycyA9IDMwNzIKdGFibGVfb3Blbl9jYWNoZSA9IDQwOTYKdGFibGVfZGVmaW5pdGlvbl9jYWNoZSA9IDQwOTYKCgp0bXBfdGFibGVfc2l6ZSA9IDFHCm1heF9oZWFwX3RhYmxlX3NpemUgPSAxRwoKaW5ub2RiX2J1ZmZlcl9wb29sX3NpemUgPSAxMkcgI3JlY29tbWVuZGVkIGZvciAxNkdCIHJhbQppbm5vZGJfYnVmZmVyX3Bvb2xfaW5zdGFuY2VzID0gMQppbm5vZGJfcmVhZF9pb190aHJlYWRzID0gNjQKaW5ub2RiX3dyaXRlX2lvX3RocmVhZHMgPSA2NAppbm5vZGJfdGhyZWFkX2NvbmN1cnJlbmN5ID0gMAppbm5vZGJfZmx1c2hfbG9nX2F0X3RyeF9jb21taXQgPSAwCmlubm9kYl9mbHVzaF9tZXRob2QgPSBPX0RJUkVDVApwZXJmb3JtYW5jZV9zY2hlbWEgPSBPTgppbm5vZGItZmlsZS1wZXItdGFibGUgPSAxCmlubm9kYl9pb19jYXBhY2l0eT0yMDAwMAppbm5vZGJfdGFibGVfbG9ja3MgPSAwCmlubm9kYl9sb2NrX3dhaXRfdGltZW91dCA9IDAKaW5ub2RiX2RlYWRsb2NrX2RldGVjdCA9IDAKaW5ub2RiX2xvZ19maWxlX3NpemUgPSA1MTJNCgpzcWwtbW9kZT0iTk9fRU5HSU5FX1NVQlNUSVRVVElPTiIKCltteXNxbGR1bXBdCnF1aWNrCnF1b3RlLW5hbWVzCm1heF9hbGxvd2VkX3BhY2tldCAgICAgID0gMTZNCgpbbXlzcWxdCgpbaXNhbWNoa10Ka2V5X2J1ZmZlcl9zaXplICAgICAgICAgICAgICA9IDE2TQo=".decode("base64")
+rMySQLCnf = "IyBYdHJlYW0gQ29kZXMKCltjbGllbnRdCnBvcnQgICAgICAgICAgICA9IDMzMDYKCltteXNxbGRfc2FmZV0KbmljZSAgICAgICAgICAgID0gMAoKW215c3FsZF0KdXNlciAgICAgICAgICAgID0gbXlzcWwKcG9ydCAgICAgICAgICAgID0gNzk5OQpiYXNlZGlyICAgICAgICAgPSAvdXNyCmRhdGFkaXIgICAgICAgICA9IC92YXIvbGliL215c3FsCnRtcGRpciAgICAgICAgICA9IC90bXAKbGMtbWVzc2FnZXMtZGlyID0gL3Vzci9zaGFyZS9teXNxbApza2lwLWV4dGVybmFsLWxvY2tpbmcKc2tpcC1uYW1lLXJlc29sdmU9MQoKYmluZC1hZGRyZXNzICAgICAgICAgICAgPSAqCmtleV9idWZmZXJfc2l6ZSA9IDEyOE0KCm15aXNhbV9zb3J0X2J1ZmZlcl9zaXplID0gNE0KbWF4X2FsbG93ZWRfcGFja2V0ICAgICAgPSA2NE0KbXlpc2FtLXJlY292ZXItb3B0aW9ucyA9IEJBQ0tVUAptYXhfbGVuZ3RoX2Zvcl9zb3J0X2RhdGEgPSA4MTkyCnF1ZXJ5X2NhY2hlX2xpbWl0ICAgICAgID0gNE0KcXVlcnlfY2FjaGVfc2l6ZSAgICAgICAgPSAwCnF1ZXJ5X2NhY2hlX3R5cGUJPSAwCgpleHBpcmVfbG9nc19kYXlzICAgICAgICA9IDEwCm1heF9iaW5sb2dfc2l6ZSAgICAgICAgID0gMTAwTQoKbWF4X2Nvbm5lY3Rpb25zICA9IDIwMDAgI3JlY29tbWVuZGVkIGZvciAxNkdCIHJhbSAKYmFja19sb2cgPSA0MDk2Cm9wZW5fZmlsZXNfbGltaXQgPSAxNjM4NAppbm5vZGJfb3Blbl9maWxlcyA9IDE2Mzg0Cm1heF9jb25uZWN0X2Vycm9ycyA9IDMwNzIKdGFibGVfb3Blbl9jYWNoZSA9IDQwOTYKdGFibGVfZGVmaW5pdGlvbl9jYWNoZSA9IDQwOTYKCgp0bXBfdGFibGVfc2l6ZSA9IDFHCm1heF9oZWFwX3RhYmxlX3NpemUgPSAxRwoKaW5ub2RiX2J1ZmZlcl9wb29sX3NpemUgPSAxMkcgI3JlY29tbWVuZGVkIGZvciAxNkdCIHJhbQppbm5vZGJfYnVmZmVyX3Bvb2xfaW5zdGFuY2VzID0gMQppbm5vZGJfcmVhZF9pb190aHJlYWRzID0gNjQKaW5ub2RiX3dyaXRlX2lvX3RocmVhZHMgPSA2NAppbm5vZGJfdGhyZWFkX2NvbmN1cnJlbmN5ID0gMAppbm5vZGJfZmx1c2hfbG9nX2F0X3RyeF9jb21taXQgPSAwCmlubm9kYl9mbHVzaF9tZXRob2QgPSBPX0RJUkVDVApwZXJmb3JtYW5jZV9zY2hlbWEgPSBPTgppbm5vZGItZmlsZS1wZXItdGFibGUgPSAxCmlubm9kYl9pb19jYXBhY2l0eT0yMDAwMAppbm5vZGJfdGFibGVfbG9ja3MgPSAwCmlubm9kYl9sb2NrX3dhaXRfdGltZW91dCA9IDAKaW5ub2RiX2RlYWRsb2NrX2RldGVjdCA9IDAKaW5ub2RiX2xvZ19maWxlX3NpemUgPSA1MTJNCgpzcWwtbW9kZT0iTk9fRU5HSU5FX1NVQlNUSVRVVElPTiIKCltteXNxbGR1bXBdCnF1aWNrCnF1b3RlLW5hbWVzCm1heF9hbGxvd2VkX3BhY2tldCAgICAgID0gMTZNCgpbbXlzcWxdCgpbaXNhbWNoa10Ka2V5X2J1ZmZlcl9zaXplICAgICAgICAgICAgICA9IDE2TQo="
 
 class col:
     HEADER = '\033[95m'
@@ -34,16 +35,16 @@ def getVersion():
     except: return ""
 
 def printc(rText, rColour=col.OKBLUE, rPadding=0):
-    print "%s ┌──────────────────────────────────────────┐ %s" % (rColour, col.ENDC)
-    for i in range(rPadding): print "%s │                                          │ %s" % (rColour, col.ENDC)
-    print "%s │ %s%s%s │ %s" % (rColour, " "*(20-(len(rText)/2)), rText, " "*(40-(20-(len(rText)/2))-len(rText)), col.ENDC)
-    for i in range(rPadding): print "%s │                                          │ %s" % (rColour, col.ENDC)
-    print "%s └──────────────────────────────────────────┘ %s" % (rColour, col.ENDC)
-    print " "
+    print("%s ┌──────────────────────────────────────────┐ %s" % (rColour, col.ENDC))
+    for i in range(rPadding): print("%s │                                          │ %s" % (rColour, col.ENDC))
+    print(rText)
+    for i in range(rPadding): print("%s │                                          │ %s" % (rColour, col.ENDC))
+    print("%s └──────────────────────────────────────────┘ %s" % (rColour, col.ENDC))
+    print(" ")
 
 def prepare(rType="MAIN"):
     global rPackages
-    if rType <> "MAIN": rPackages = rPackages[:-3]
+    if rType != "MAIN": rPackages = rPackages[:-3]
     printc("Preparing Installation")
     for rFile in ["/var/lib/dpkg/lock-frontend", "/var/cache/apt/archives/lock", "/var/lib/dpkg/lock"]:
         try: os.remove(rFile)
@@ -57,8 +58,8 @@ def prepare(rType="MAIN"):
     for rPackage in rPackages:
         printc("Installing %s" % rPackage)
         os.system("apt install %s -y > /dev/null" % rPackage)
-    printc("Installing pip2 and python2 paramiko")
-    os.system("add-apt-repository universe > /dev/null && curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py > /dev/null && python2 get-pip.py > /dev/null && pip2 install paramiko > /dev/null")
+    printc("Installing paramiko")
+    os.system("pip3 install paramiko > /dev/null")
     printc("Installing libpng12")
     os.system("add-apt-repository ppa:linuxuprising/libpng12 -y > /dev/null && apt update > /dev/null")
     os.system("apt install libpng12-0 > /dev/null")
@@ -102,16 +103,16 @@ def update(rType="MAIN"):
        'Accept-Encoding': 'none',
        'Accept-Language': 'en-US,en;q=0.8',
        'Connection': 'keep-alive'}
-    req = urllib2.Request(rlink, headers=hdr)
+    req = urllib.request.Request(rlink, headers=hdr)
     try:
-    	urllib2.urlopen(req)
+    	urllib.request.urlopen(req)
     except:
         printc("Invalid download URL!", col.FAIL)
         return False
-    print "\n"
+    print("\n")
     rURL = rlink
     printc("Downloading Software Update")  
-    print "\n"
+    print("\n")
     os.system('wget -q -O "/tmp/update.zip" "%s"' % rURL)
     if os.path.exists("/tmp/update.zip"):
         try: is_ok = zipfile.ZipFile("/tmp/update.zip")
@@ -145,11 +146,11 @@ def mysql(rUsername, rPassword):
     #printc("Enter MySQL Root Password:", col.WARNING)
     for i in range(5):
         rMySQLRoot = "" #raw_input("  ")
-        print " "
+        print(" ")
         if len(rMySQLRoot) > 0: rExtra = " -p%s" % rMySQLRoot
         else: rExtra = ""
         printc("Drop existing & create database? Y/N", col.WARNING)
-        if raw_input("  ").upper() == "Y": rDrop = True
+        if input("  ").upper() == "Y": rDrop = True
         else: rDrop = False
         try:
             if rDrop:
@@ -171,7 +172,7 @@ def encrypt(rHost="127.0.0.1", rUsername="user_iptvpro", rPassword="", rDatabase
     try: os.remove("/home/xtreamcodes/iptv_xtream_codes/config")
     except: pass
     rf = open('/home/xtreamcodes/iptv_xtream_codes/config', 'wb')
-    rf.write(''.join(chr(ord(c)^ord(k)) for c,k in izip('{\"host\":\"%s\",\"db_user\":\"%s\",\"db_pass\":\"%s\",\"db_name\":\"%s\",\"server_id\":\"%d\", \"db_port\":\"%d\"}' % (rHost, rUsername, rPassword, rDatabase, rServerID, rPort), cycle('5709650b0d7806074842c6de575025b1'))).encode('base64').replace('\n', ''))
+    rf.write(''.join(chr(ord(c)^ord(k)) for c,k in zip('{\"host\":\"%s\",\"db_user\":\"%s\",\"db_pass\":\"%s\",\"db_name\":\"%s\",\"server_id\":\"%d\", \"db_port\":\"%d\"}' % (rHost, rUsername, rPassword, rDatabase, rServerID, rPort), cycle('5709650b0d7806074842c6de575025b1'))).encode('base64').replace('\n', ''))
     rf.close()
 
 def configure():
@@ -225,18 +226,18 @@ def modifyNginx():
 
 if __name__ == "__main__":
     printc("Xtream UI Ubuntu 20.04 Installer", col.OKGREEN, 2)
-    print "%s │ NOTE: this is a forked mirror of original installer from https://xtream-ui.com/install/install.py %s" % (col.OKGREEN, col.ENDC)
-    print "%s │ Check out the mirror repo: https://bitbucket.org/emre1393/xtreamui_mirror/ and https://github.com/emre1393/xtreamui_mirror %s" % (col.OKGREEN, col.ENDC)
-    print " "
-    rType = raw_input("  Installation Type [MAIN, LB, UPDATE]: ")
-    print " "
+    print("%s │ NOTE: this is a forked mirror of original installer from https://xtream-ui.com/install/install.py %s" % (col.OKGREEN, col.ENDC))
+    print("%s │ Check out the mirror repo: https://bitbucket.org/emre1393/xtreamui_mirror/ and https://github.com/emre1393/xtreamui_mirror %s" % (col.OKGREEN, col.ENDC))
+    print(" ")
+    rType = input("  Installation Type [MAIN, LB, UPDATE]: ")
+    print(" ")
     if rType.upper() in ["MAIN", "LB"]:
         if rType.upper() == "LB":
-            rHost = raw_input("  Main Server IP Address: ")
-            rPassword = raw_input("  MySQL Password: ")
-            try: rServerID = int(raw_input("  Load Balancer Server ID: "))
+            rHost = input("  Main Server IP Address: ")
+            rPassword = input("  MySQL Password: ")
+            try: rServerID = int(input("  Load Balancer Server ID: "))
             except: rServerID = -1
-            print " "
+            print(" ")
         else:
             rHost = "127.0.0.1"
             rPassword = generate()
@@ -246,8 +247,8 @@ if __name__ == "__main__":
         rPort = 7999
         if len(rHost) > 0 and len(rPassword) > 0 and rServerID > -1:
             printc("Start installation? Y/N", col.WARNING)
-            if raw_input("  ").upper() == "Y":
-                print " "
+            if input("  ").upper() == "Y":
+                print(" ")
                 rRet = prepare(rType.upper())
                 if not install(rType.upper()): sys.exit(1)
                 if rType.upper() == "MAIN":
@@ -265,7 +266,7 @@ if __name__ == "__main__":
                 rType = "UPDATE"
                 if os.path.exists("/home/xtreamcodes/iptv_xtream_codes/wwwdir/api.php"):
                    printc("Update Admin Panel? Y/N?", col.WARNING)
-                   if raw_input("  ").upper() == "Y":
+                   if input("  ").upper() == "Y":
                       if not update(rType.upper()): sys.exit(1)
                       printc("Installation completed!", col.OKGREEN, 2)
                       start()
@@ -275,7 +276,7 @@ if __name__ == "__main__":
     elif rType.upper() == "UPDATE":
         if os.path.exists("/home/xtreamcodes/iptv_xtream_codes/wwwdir/api.php"):
             printc("Update Admin Panel? Y/N?", col.WARNING)
-            if raw_input("  ").upper() == "Y":
+            if input("  ").upper() == "Y":
                 if not update(rType.upper()): sys.exit(1)
                 printc("Installation completed!", col.OKGREEN, 2)
                 start()
