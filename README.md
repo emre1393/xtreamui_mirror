@@ -8,6 +8,8 @@ Includes NGINX 1.19.2 and PHP 7.3.25.
 - bumped php version from 7.2 to 7.3 following 7.2 obsolence
 - fixed user_watcher.php disconnect users every minute because of wrong pid check.
 
+Note: HLS activity is wrongly reported. You should use mpegts ouput and not hls while it's unfixed
+
 ### THANKS ###
 
 Thanks to GTA for xtream-ui admin original interface
