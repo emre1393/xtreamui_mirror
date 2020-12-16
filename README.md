@@ -18,7 +18,7 @@ Thanks to emre1393 for being the wisdom of xui community
 Update your ubuntu first, then install panel:
 ``` 
 sudo apt update && sudo apt full-upgrade -y;  
-wget https://raw.githubusercontent.com/NeySlim/xtreamui_mirror/install.py; 
+wget https://raw.githubusercontent.com/NeySlim/xtreamui_mirror/master/install.py; 
 sudo python install.py  
 ```
   
