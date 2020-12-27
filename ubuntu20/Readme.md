@@ -6,7 +6,7 @@
 now, if you want to update only php files (even on ubuntu 18), just unzip php_7.2.33_for_xc.zip and you will be ready to go.  
 
 * added mysql server 8 (for ubuntu 20) and a working my.cnf with this install.py  
-* added some sed commands to replace python commands with python2, yes python2 on ubuntu 20.  
+* added a sed command to replace python commands with python2 in pytools/balancer.py file.  
 
 tested few basic things like live streams, user adding, watch stream on user side.  
 
@@ -17,9 +17,9 @@ rest of files are same, main_xtreamcodes_reborn.tar and sub_xtreamcodes_reborn.t
 
 update your ubuntu first, then install panel  
   
-* sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install python2 -y;  
+* sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install python-is-python2 -y;  
 * wget https://github.com/emre1393/xtreamui_mirror/raw/master/ubuntu20/install.py; 
-* sudo python2 install.py  
+* sudo python install.py  
   
 If you want to install main server with admin panel, choose MAIN.  
 If you want to install load balance on additional servers, add a server to panel in manage servers page, then run script and proceed with LB option.  
@@ -56,5 +56,4 @@ developer made update releases open to public after r22c release, you can downlo
 i added an "UPDATE" part to install.py, it will ask link of update zip file.  
 
 ### note4,  
-updated php binaries with php 7.2.33 version, compiled according to the how-to txt
-my.cnf config for mysql server 8
+updated php binaries with php 7.2.33 version, compiled according to the how-to txt and my.cnf config for mysql server 8
