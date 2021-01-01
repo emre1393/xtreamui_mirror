@@ -1,6 +1,8 @@
 # README #
 # xtreamui_mirror for ubuntu 20
 
+this is experimental, using this on a production server is up to you.
+
 * updated php binaries to make it work with ubuntu 20 and curl4.  
 ---compiled on ubuntu 18, used 'make install' command and took php folder. deleted 3 config files related with main server.
 now, if you want to update only php files (even on ubuntu 18), just unzip php_7.2.33_for_xc.zip and you will be ready to go.  
