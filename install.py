@@ -33,11 +33,11 @@ def getVersion():
     except: return ""
 
 def printc(rText, rColour=col.OKBLUE, rPadding=0):
-    print "%s ┌──────────────────────────────────────────┐ %s" % (rColour, col.ENDC)
-    for i in range(rPadding): print "%s │                                          │ %s" % (rColour, col.ENDC)
+    print "%s ┌────────────────────────────────────────────────┐ %s" % (rColour, col.ENDC)
+    for i in range(rPadding): print "%s │                                                │ %s" % (rColour, col.ENDC)
     print "%s │ %s%s%s │ %s" % (rColour, " "*(20-(len(rText)/2)), rText, " "*(40-(20-(len(rText)/2))-len(rText)), col.ENDC)
-    for i in range(rPadding): print "%s │                                          │ %s" % (rColour, col.ENDC)
-    print "%s └──────────────────────────────────────────┘ %s" % (rColour, col.ENDC)
+    for i in range(rPadding): print "%s │                                                │ %s" % (rColour, col.ENDC)
+    print "%s └────────────────────────────────────────────────┘ %s" % (rColour, col.ENDC)
     print " "
 
 def prepare(rType="MAIN"):
