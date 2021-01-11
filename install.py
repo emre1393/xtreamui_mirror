@@ -1,4 +1,5 @@
 #!/usr/bin/python2
+# -*- coding: utf-8 -*-
 import subprocess, os, random, string, sys, shutil, socket, zipfile, urllib2
 from itertools import cycle, izip
 from zipfile import ZipFile
