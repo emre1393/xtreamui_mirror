@@ -2,6 +2,9 @@
 This is an installation mirror for xtream ui software on Ubuntu 20.04.
 Includes NGINX 1.19.2 and PHP 7.3.25.
 
+### Update 11/01/2021: ###
+- Fixed release
+- Bumped xtream-ui admin to 22F Mods 13
 
 
 ### Update 08/12/2020: ###
