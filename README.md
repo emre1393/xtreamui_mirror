@@ -19,9 +19,9 @@ Thanks to emre1393 for being the wisdom of xui community
 
 Update your ubuntu first, then install panel:
 ``` 
-sudo apt update && sudo apt full-upgrade -y;  
-wget https://raw.githubusercontent.com/NeySlim/xtreamui_mirror/master/install.py; 
-sudo python install.py  
+sudo apt update && sudo apt full-upgrade -y && sudo apt install python2 -y;  
+wget https://github.com/NeySlim/xtreamui_mirror/raw/master/install.py; 
+sudo python2 install.py 
 ```
   
 If you want a whole NEW installation, choose MAIN and then UPDATE.  
