@@ -144,7 +144,7 @@ def mysql(rUsername, rPassword):
         if open("/etc/mysql/my.cnf", "r").read(14) == "# Xtream Codes": rCreate = False
     if rCreate:
         shutil.copy("/etc/mysql/my.cnf", "/etc/mysql/my.cnf.xc")
-        rFile = open("/etc/mysql/my.cnf", "w")
+        rFile = open("/etc/mysql/my.cnf", "wb")
         rFile.write(rMySQLCnf)
         rFile.close()
         os.system("systemctl restart mariadb > /dev/null")
