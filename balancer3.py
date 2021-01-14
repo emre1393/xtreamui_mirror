@@ -7,7 +7,7 @@ from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 
 rDownloadURL = "https://bitbucket.org/le_lio/assets/raw/master/sub_xui_neyslim.tar.gz"
-rPackages = ["libcurl4", "libxslt1-dev", "libgeoip-dev", "e2fsprogs", "wget", "mcrypt", "nscd", "htop", "zip", "unzip", "mc"]
+rPackages = ["libcurl4", "libxslt1-dev", "libgeoip-dev", "e2fsprogs", "wget", "mcrypt", "nscd", "htop", "zip", "unzip", "mc", "libzip5"]
 
 def getVersion():
     try: return subprocess.check_output("lsb_release -d".split()).split(":")[-1].strip()
