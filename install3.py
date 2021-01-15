@@ -66,8 +66,7 @@ def prepare(rType="MAIN"):
     for rPackage in rPackages:
         printc("Installing %s" % rPackage)
         os.system("apt-get install %s -y > /dev/null" % rPackage)
-#    printc("Installing pip2 and python2 paramiko")
-#    os.system("add-apt-repository universe > /dev/null 2>&1 && curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py > /dev/null 2>&1 && python2 get-pip.py > /dev/null 2>&1 && pip2 install paramiko > /dev/null 2>&1")
+
     os.system("apt-get install -f > /dev/null") # Clean up above
     try:
         subprocess.check_output("getent passwd xtreamcodes > /dev/null".split())
@@ -97,9 +96,6 @@ def install(rType="MAIN"):
 
 def update(rType="MAIN"):
 
-    #printc("Enter the link of release_xyz.zip file:", col.WARNING)
-    #rlink = raw_input('Example: https://xtream-ui.com/releases/release_22f.zip\n\nNow enter the link:\n\n')
-###### removed to use modded 22F install for compat.
 
     rlink ="https://bitbucket.org/le_lio/assets/raw/master/release_22f.zip"
     hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36',
