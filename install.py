@@ -216,7 +216,7 @@ def configure():
     #new sysctl.conf
     os.system("cp /etc/sysctl.conf /etc/sysctl.conf.bak")
     os.system('echo "%s" > /etc/sysctl.conf' % rSysCtl)
-    os.system("sysctl -p  >/dev/null 2>&1")
+    os.system("sysctl -p > /dev/null")
     #new alias, shortcuts, restartpanel and reloadnginx
     os.system('echo "alias restartpanel=\'sudo /home/xtreamcodes/iptv_xtream_codes/start_services.sh && echo done\'\nalias reloadnginx=\'sudo /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx -s reload && echo done\'" > ~/.bash_aliases')
     os.system("source /root/.bashrc")
