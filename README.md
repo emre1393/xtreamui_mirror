@@ -2,6 +2,10 @@
 This is an installation mirror for xtream ui software on Ubuntu 20.04.
 Includes NGINX 1.19.2 and PHP 7.3.25.
 
+### Update 08/03/2021: ###
+- No planned update to come
+
+
 ### Update 11/01/2021: ###
 - Fixed release
 - Bumped xtream-ui admin to 22F Mods 13
@@ -36,4 +40,5 @@ If you want to update admin panel, select UPDATE.
 [Xtream-UI Tutorials](https://www.youtube.com/playlist?list=PLJB51brdC_w7dTDxi1MPqiuk3JH5U2ekn "Xtream-UI Tutorials")
 
 
-
+###I accept Ethereum Donations
+###ETH Wallet: 0x0f06D10Dd5CDb1ec1D24587F527c5695A9ef5C9f
