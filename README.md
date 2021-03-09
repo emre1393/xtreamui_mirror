@@ -39,6 +39,7 @@ If you want to update admin panel, select UPDATE.
 
 [Xtream-UI Tutorials](https://www.youtube.com/playlist?list=PLJB51brdC_w7dTDxi1MPqiuk3JH5U2ekn "Xtream-UI Tutorials")
 
-
-###I accept Ethereum Donations
-###ETH Wallet: 0x0f06D10Dd5CDb1ec1D24587F527c5695A9ef5C9f
+```
+I accept Ethereum Donations
+ETH Wallet: 0x0f06D10Dd5CDb1ec1D24587F527c5695A9ef5C9f
+```
