@@ -28,7 +28,7 @@ def prepare():
     return True
 
 def install():
-    global rInstall, rDownloadURL
+    global rDownloadURL
     rURL = rDownloadURL
     os.system('wget -q -O "/tmp/xtreamcodes.tar.gz" "%s"' % rURL)
     if os.path.exists("/tmp/xtreamcodes.tar.gz"):
