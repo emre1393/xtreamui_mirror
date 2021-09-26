@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import subprocess, os, random, string, sys, shutil, socket, zipfile
+import subprocess, os, random, string, sys, shutil, socket, zipfile, time
 from itertools import cycle, izip
 from zipfile import ZipFile
 
@@ -67,11 +67,10 @@ def prepare(rType="MAIN"):
     printc("Removing libcurl4 if installed")
     os.system("apt-get remove --auto-remove libcurl4 -y > /dev/null")
     printc("Installing Curl with Snap")
-    os.system("snap install curl > /dev/null")
+    os.system("sudo apt -y install snapd && snap install curl > /dev/null")
     if rType == "MAIN":
         printc("Adding Mariadb Repository")
         if rVersion in rVersions:
-            printc("Adding mariadb repo for: Ubuntu %s" % rVersion)
             os.system("sudo apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'")
             os.system("sudo add-apt-repository -y 'deb [arch=amd64,arm64,ppc64el] http://ams2.mirrors.digitalocean.com/mariadb/repo/10.5/ubuntu %s main'" % rVersions[rVersion])
             os.system("apt-get update > /dev/null")
@@ -138,18 +137,18 @@ def installadminpanel():
             return False
         printc("Installing New Stuff for Admin Panel")
         os.system('unzip -o /tmp/update2.zip -d /tmp/update2/ > /dev/null && cp -rf /tmp/update2/* /home/xtreamcodes/iptv_xtream_codes/ > /dev/null && rm -rf /tmp/update2/* > /dev/null && rm -rf /tmp/update2 > /dev/null && chown -R xtreamcodes:xtreamcodes /home/xtreamcodes/ > /dev/null > /dev/null')
+        if os.path.exists("/tmp/xtreamui-things"): os.system("rm -rf /tmp/xtreamui-things")
+        printc("Getting updated admin-modified files")
         os.system("git clone https://github.com/emre1393/xtreamui-things.git /tmp/xtreamui-things &> /dev/null")
-        if os.path.exists("/tmp/xtreamui-things"):
-            os.system("cp -ur /tmp/xtreamui-things/admin-modified/* /home/xtreamcodes/iptv_xtream_codes/admin/")
-            os.system("rm -rf /tmp/xtreamui-things")
         return True
     printc("Failed to download installation file!", col.FAIL)
     return False
 
 
+
 def mysql(rUsername, rPassword):
     global rMySQLCnf
-    printc("Configuring MySQL")
+    printc("Configuring Mariadb-Server")
     rCreate = True
     if os.path.exists("/etc/mysql/my.cnf"):
         if open("/etc/mysql/my.cnf", "r").read(14) == "# Xtream Codes": rCreate = False
@@ -221,7 +220,7 @@ def configure():
     if rType == "MAIN": 
         os.system("sudo find /home/xtreamcodes/iptv_xtream_codes/admin/ -type f -exec chmod 644 {} \;")
         os.system("sudo find /home/xtreamcodes/iptv_xtream_codes/admin/ -type d -exec chmod 755 {} \;")
-        os.system("sed -i 's|https://bitbucket.org/emre1393/xtreamui_mirror/downloads/balancer.py|https://github.com/emre1393/xtreamui_mirror/raw/master/withmariadb/balancer.py|g' /home/xtreamcodes/iptv_xtream_codes/nginx/conf/admin_panel.conf")
+        os.system("sed -i 's|https://bitbucket.org/emre1393/xtreamui_mirror/downloads/balancer.py|https://github.com/emre1393/xtreamui_mirror/raw/master/withmariadb/balancer.py|g'  /home/xtreamcodes/iptv_xtream_codes/pytools/balancer.py")
     os.system("wget --user-agent=\"Mozilla/5.0\"  -q https://bitbucket.org/emre1393/xtreamui_mirror/downloads/nginx -O /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx")
     os.system("wget --user-agent=\"Mozilla/5.0\" -q https://bitbucket.org/emre1393/xtreamui_mirror/downloads/nginx_rtmp -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/nginx_rtmp")
     os.system("wget --user-agent=\"Mozilla/5.0\" -q https://bitbucket.org/emre1393/xtreamui_mirror/downloads/pid_monitor.php -O /home/xtreamcodes/iptv_xtream_codes/crons/pid_monitor.php")
@@ -258,7 +257,6 @@ def configure():
     rFile.write(rNewStartServices)
     rFile.close()
     os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/start_services.sh > /dev/null")
-
     if os.path.exists("/etc/init.d/xtreamcodes"): os.remove("/etc/init.d/xtreamcodes")
     if os.path.exists("/etc/systemd/system/xtreamcodes.service"): os.remove("/etc/systemd/system/xtreamcodes.service")
     if not os.path.exists("/etc/systemd/system/xtreamcodes.service"):
@@ -268,8 +266,14 @@ def configure():
     os.system("sudo chmod +x /etc/systemd/system/xtreamcodes.service")
     os.system("sudo systemctl daemon-reload")
     os.system("sudo systemctl enable xtreamcodes")
+    if rType == "MAIN": 
+        time.sleep(10)
+        if os.path.exists("/tmp/xtreamui-things"):
+            os.system("cp -ur /tmp/xtreamui-things/admin-modified/* /home/xtreamcodes/iptv_xtream_codes/admin/")
+            os.system("rm -rf /tmp/xtreamui-things")
     os.system("chown xtreamcodes:xtreamcodes -R /home/xtreamcodes > /dev/null")
     os.system('chattr -f +i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb > /dev/null')
+
     if not "api.xtream-codes.com" in open("/etc/hosts").read(): os.system('echo "127.0.0.1    api.xtream-codes.com" >> /etc/hosts')
     if not "downloads.xtream-codes.com" in open("/etc/hosts").read(): os.system('echo "127.0.0.1    downloads.xtream-codes.com" >> /etc/hosts')
     if not "xtream-codes.com" in open("/etc/hosts").read(): os.system('echo "127.0.0.1    xtream-codes.com" >> /etc/hosts')
