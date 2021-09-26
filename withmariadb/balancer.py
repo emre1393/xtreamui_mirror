@@ -27,7 +27,8 @@ def prepare():
         except: pass
     os.system("apt-get update > /dev/null")
     os.system("apt-get remove --auto-remove libcurl4 -y > /dev/null")
-    os.system("sudo apt -y install snapd && snap install curl > /dev/null")
+    os.system("sudo apt -y install snapd")
+    os.system("snap install curl > /dev/null")
     for rPackage in rPackages: os.system("apt-get install %s -y > /dev/null" % rPackage)
     os.system("wget --user-agent=\"Mozilla/5.0\" -q -O /tmp/libpng12.deb http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb")
     os.system("dpkg -i /tmp/libpng12.deb > /dev/null")
@@ -84,19 +85,29 @@ def configure():
     os.system('echo "%s" > /home/xtreamcodes/iptv_xtream_codes/php/etc/2.conf' % rPhpfpm2)
     os.system('echo "%s" > /home/xtreamcodes/iptv_xtream_codes/php/etc/3.conf' % rPhpfpm3)
     os.system('echo "%s" > /home/xtreamcodes/iptv_xtream_codes/php/etc/4.conf' % rPhpfpm4)
+    if os.path.exists("/etc/sysctl.conf"):
+        os.system("cp /etc/sysctl.conf /etc/sysctl.conf.bak")
     os.system('echo "%s" > /etc/sysctl.conf' % rSysctlFile)
     os.system("sudo sysctl -p >/dev/null 2>&1")
     if not "DefaultLimitNOFILE=655350" in open("/etc/systemd/system.conf").read():
         os.system('sudo echo "DefaultLimitNOFILE=655350" >> "/etc/systemd/system.conf"')
         os.system('sudo echo "DefaultLimitNOFILE=655350" >> "/etc/systemd/user.conf"')
-    os.system('echo "%s" > /home/xtreamcodes/iptv_xtream_codes/service' % rXCserviceFile)
+    if os.path.exists("/home/xtreamcodes/iptv_xtream_codes/service"):
+        os.remove("/home/xtreamcodes/iptv_xtream_codes/service")
+    rFile = open("/home/xtreamcodes/iptv_xtream_codes/service", "w")
+    rFile.write(rXCserviceFile)
+    rFile.close()
     os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/service > /dev/null")
-    os.system('echo "%s" > /home/xtreamcodes/iptv_xtream_codes/start_services.sh' % rNewStartServices)
+    if os.path.exists("/home/xtreamcodes/iptv_xtream_codes/start_services.sh"):
+        os.remove("/home/xtreamcodes/iptv_xtream_codes/start_services.sh")
+    rFile = open("/home/xtreamcodes/iptv_xtream_codes/start_services.sh", "w")
+    rFile.write(rNewStartServices)
+    rFile.close()
     os.system("chmod +x /home/xtreamcodes/iptv_xtream_codes/start_services.sh > /dev/null")
     if os.path.exists("/etc/init.d/xtreamcodes"): os.remove("/etc/init.d/xtreamcodes")
     if os.path.exists("/etc/systemd/system/xtreamcodes.service"): os.remove("/etc/systemd/system/xtreamcodes.service")
     if not os.path.exists("/etc/systemd/system/xtreamcodes.service"):
-        rFile = open("/etc/systemd/system/xtreamcodes.service", "w", encoding="utf-8")
+        rFile = open("/etc/systemd/system/xtreamcodes.service", "w")
         rFile.write(rSystemdUnitFile)
         rFile.close()
     os.system("sudo chmod +x /etc/systemd/system/xtreamcodes.service")
