@@ -10,6 +10,8 @@ NOTE: This one is experimental, it may work or not. you can still use normal one
 * it has systemd unit file with a service script, "systemctl start/stop/restart/enable/disable xtreamcodes.service"  
 * updated php-fpm config files and renamed them with 1,2,3,4. updated start_services.sh and nginx balance.conf file accordingly.  
 * it has a new sysctl file, i hope it helps to big servers for better performance.  
+* it will install "curl" from snap, no need to mess with libcurl34 anymore.  
+* it will update files from xtreamui-things/admin-modified folder at first installation. you can find same commands at below.  
 
 
 ### How do I install? ###
