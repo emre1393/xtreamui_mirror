@@ -27,7 +27,7 @@ def prepare():
         except: pass
     os.system("apt-get update > /dev/null")
     os.system("apt-get remove --auto-remove libcurl4 -y > /dev/null")
-    os.system("snap install curl > /dev/null")
+    os.system("sudo apt -y install snapd && snap install curl > /dev/null")
     for rPackage in rPackages: os.system("apt-get install %s -y > /dev/null" % rPackage)
     os.system("wget --user-agent=\"Mozilla/5.0\" -q -O /tmp/libpng12.deb http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb")
     os.system("dpkg -i /tmp/libpng12.deb > /dev/null")
