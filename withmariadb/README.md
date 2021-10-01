@@ -19,7 +19,7 @@ NOTE: This one is experimental, it may work or not. you can still use normal one
 
 update your ubuntu first, then install panel  
   
-* sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install libxslt1-dev libcurl3 libgeoip-dev python git -y;  
+* sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install software-properties-common libxslt1-dev libcurl3 libgeoip-dev python git -y;  
 * rm install.py; wget https://github.com/emre1393/xtreamui_mirror/raw/master/withmariadb/install.py; 
 * sudo python install.py  
   
