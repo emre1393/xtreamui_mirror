@@ -5,7 +5,7 @@ from itertools import cycle, izip
 from zipfile import ZipFile
 
 rDownloadURL = {"main": "https://bitbucket.org/emre1393/xtreamui_mirror/downloads/main_xtreamcodes_reborn.tar.gz", "sub": "https://bitbucket.org/emre1393/xtreamui_mirror/downloads/sub_xtreamcodes_reborn.tar.gz"}
-rPackages = ["libcurl3", "libxslt1-dev", "libgeoip-dev", "e2fsprogs", "wget", "mcrypt", "nscd", "htop", "zip", "unzip", "mc", "git", "libjemalloc1", "python-paramiko", "mariadb-server"]
+rPackages = ["libcurl3", "libxslt1-dev", "libgeoip-dev", "e2fsprogs", "wget", "mcrypt", "nscd", "htop", "zip", "unzip", "mc", "libjemalloc1", "python-paramiko", "mariadb-server"]
 rInstall = {"MAIN": "main", "LB": "sub"}
 rMySQLCnf = "IyBYdHJlYW0gQ29kZXMKW2NsaWVudF0KcG9ydCAgICAgICAgICAgICAgICAgICAgICAgICAgICA9IDMzMDYKCltteXNxbGRfc2FmZV0KbmljZSAgICAgICAgICAgICAgICAgICAgICAgICAgICA9IDAKI21hbGxvYyBzZXR0aW5ncwptYWxsb2MtbGliPS91c3IvbGliL3g4Nl82NC1saW51eC1nbnUvbGlidGNtYWxsb2Muc28uNC4zLjAKCltteXNxbGRdCnVzZXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgPSBteXNxbApwb3J0ICAgICAgICAgICAgICAgICAgICAgICAgICAgID0gNzk5OQpiYXNlZGlyICAgICAgICAgICAgICAgICAgICAgICAgID0gL3VzcgpkYXRhZGlyICAgICAgICAgICAgICAgICAgICAgICAgID0gL3Zhci9saWIvbXlzcWwKdG1wZGlyICAgICAgICAgICAgICAgICAgICAgICAgICA9IC90bXAKbGMtbWVzc2FnZXMtZGlyICAgICAgICAgICAgICAgICA9IC91c3Ivc2hhcmUvbXlzcWwKc2tpcC1leHRlcm5hbC1sb2NraW5nCnNraXAtbmFtZS1yZXNvbHZlICAgICAgICAgICAgICAgPTEKYmluZC1hZGRyZXNzICAgICAgICAgICAgICAgICAgICA9ICoKCmtleV9idWZmZXJfc2l6ZSAgICAgICAgICAgICAgICAgPSAxMjhNCm15aXNhbV9zb3J0X2J1ZmZlcl9zaXplICAgICAgICAgPSA0TQptYXhfYWxsb3dlZF9wYWNrZXQgICAgICAgICAgICAgID0gNjRNCm15aXNhbS1yZWNvdmVyLW9wdGlvbnMgICAgICAgICAgPSBCQUNLVVAKbWF4X2xlbmd0aF9mb3Jfc29ydF9kYXRhICAgICAgICA9IDgxOTIKcXVlcnlfY2FjaGVfbGltaXQgICAgICAgICAgICAgICA9IDAKcXVlcnlfY2FjaGVfc2l6ZSAgICAgICAgICAgICAgICA9IDAKcXVlcnlfY2FjaGVfdHlwZSAgICAgICAgICAgICAgICA9IDAKZXhwaXJlX2xvZ3NfZGF5cyAgICAgICAgICAgICAgICA9IDEwCm1heF9iaW5sb2dfc2l6ZSAgICAgICAgICAgICAgICAgPSAxMDBNCm1heF9jb25uZWN0aW9ucyAgICAgICAgICAgICAgICAgPSA4MTkyCmJhY2tfbG9nICAgICAgICAgICAgICAgICAgICAgICAgPSA0MDk2Cm9wZW5fZmlsZXNfbGltaXQgICAgICAgICAgICAgICAgPSAyMDI0MAppbm5vZGJfb3Blbl9maWxlcyAgICAgICAgICAgICAgID0gMjAyNDAKbWF4X2Nvbm5lY3RfZXJyb3JzICAgICAgICAgICAgICA9IDMwNzIKdGFibGVfb3Blbl9jYWNoZSAgICAgICAgICAgICAgICA9IDQwOTYKdGFibGVfZGVmaW5pdGlvbl9jYWNoZSAgICAgICAgICA9IDQwOTYKdG1wX3RhYmxlX3NpemUgICAgICAgICAgICAgICAgICA9IDFHCm1heF9oZWFwX3RhYmxlX3NpemUgICAgICAgICAgICAgPSAxRwoKbWF4X3N0YXRlbWVudF90aW1lID0gMTAwCgppbm5vZGJfYnVmZmVyX3Bvb2xfc2l6ZSAgICAgICAgID0gMTJHCmlubm9kYl9yZWFkX2lvX3RocmVhZHMgICAgICAgICAgPSA2NAppbm5vZGJfd3JpdGVfaW9fdGhyZWFkcyAgICAgICAgID0gNjQKaW5ub2RiX3RocmVhZF9jb25jdXJyZW5jeSAgICAgICA9IDAKaW5ub2RiX2ZsdXNoX2xvZ19hdF90cnhfY29tbWl0ICA9IDAKaW5ub2RiX2ZsdXNoX21ldGhvZCAgICAgICAgICAgICA9IE9fRElSRUNUCnBlcmZvcm1hbmNlX3NjaGVtYSAgICAgICAgICAgICAgPSAwCmlubm9kYi1maWxlLXBlci10YWJsZSAgICAgICAgICAgPSAxCmlubm9kYl9pb19jYXBhY2l0eSAgICAgICAgICAgICAgPSAyMDAwMAppbm5vZGJfdGFibGVfbG9ja3MgICAgICAgICAgICAgID0gMAppbm5vZGJfbG9ja193YWl0X3RpbWVvdXQgICAgICAgID0gMAoKc3FsX21vZGUgICAgICAgICAgICAgICAgICAgICAgICA9ICJOT19FTkdJTkVfU1VCU1RJVFVUSU9OIgoKW21hcmlhZGJdCgp0aHJlYWRfY2FjaGVfc2l6ZSAgICAgICAgICAgICAgID0gODE5Mgp0aHJlYWRfaGFuZGxpbmcgICAgICAgICAgICAgICAgID0gcG9vbC1vZi10aHJlYWRzCnRocmVhZF9wb29sX3NpemUgICAgICAgICAgICAgICAgPSAxMgp0aHJlYWRfcG9vbF9pZGxlX3RpbWVvdXQgICAgICAgID0gMjAKdGhyZWFkX3Bvb2xfbWF4X3RocmVhZHMgICAgICAgICA9IDEwMjQKCltteXNxbGR1bXBdCnF1aWNrCnF1b3RlLW5hbWVzCm1heF9hbGxvd2VkX3BhY2tldCAgICAgICAgICAgICAgPSAxMjhNCmNvbXBsZXRlLWluc2VydAoKW215c3FsXQoKW2lzYW1jaGtdCmtleV9idWZmZXJfc2l6ZSAgICAgICAgICAgICAgICAgPSAxNk0K==".decode("base64")
 rSysctlFile = "bmV0LmlwdjQudGNwX2Nvbmdlc3Rpb25fY29udHJvbCA9IGJicgpuZXQuY29yZS5kZWZhdWx0X3FkaXNjID0gZnEKbmV0LmlwdjQudGNwX3JtZW0gPSA4MTkyIDg3MzgwIDEzNDIxNzcyOApuZXQuaXB2NC51ZHBfcm1lbV9taW4gPSAxNjM4NApuZXQuY29yZS5ybWVtX2RlZmF1bHQgPSAyNjIxNDQKbmV0LmNvcmUucm1lbV9tYXggPSAyNjg0MzU0NTYKbmV0LmlwdjQudGNwX3dtZW0gPSA4MTkyIDY1NTM2IDEzNDIxNzcyOApuZXQuaXB2NC51ZHBfd21lbV9taW4gPSAxNjM4NApuZXQuY29yZS53bWVtX2RlZmF1bHQgPSAyNjIxNDQKbmV0LmNvcmUud21lbV9tYXggPSAyNjg0MzU0NTYKbmV0LmNvcmUuc29tYXhjb25uID0gMTAwMDAwMApuZXQuY29yZS5uZXRkZXZfbWF4X2JhY2tsb2cgPSAyNTAwMDAKbmV0LmNvcmUub3B0bWVtX21heCA9IDY1NTM1Cm5ldC5pcHY0LnRjcF9tYXhfdHdfYnVja2V0cyA9IDE0NDAwMDAKbmV0LmlwdjQudGNwX21heF9vcnBoYW5zID0gMTYzODQKbmV0LmlwdjQuaXBfbG9jYWxfcG9ydF9yYW5nZSA9IDIwMDAgNjUwMDAKbmV0LmlwdjQudGNwX25vX21ldHJpY3Nfc2F2ZSA9IDEKbmV0LmlwdjQudGNwX3Nsb3dfc3RhcnRfYWZ0ZXJfaWRsZSA9IDAKbmV0LmlwdjQudGNwX2Zpbl90aW1lb3V0ID0gMTUKbmV0LmlwdjQudGNwX2tlZXBhbGl2ZV90aW1lID0gMzAwCm5ldC5pcHY0LnRjcF9rZWVwYWxpdmVfcHJvYmVzID0gNQpuZXQuaXB2NC50Y3Bfa2VlcGFsaXZlX2ludHZsID0gMTUKZnMuZmlsZS1tYXg9MjA5NzA4MDAKZnMubnJfb3Blbj0yMDk3MDgwMApmcy5haW8tbWF4LW5yPTIwOTcwODAwCm5ldC5pcHY0LnRjcF90aW1lc3RhbXBzID0gMQpuZXQuaXB2NC50Y3Bfd2luZG93X3NjYWxpbmcgPSAxCm5ldC5pcHY0LnRjcF9tdHVfcHJvYmluZyA9IDEKbmV0LmlwdjQucm91dGUuZmx1c2ggPSAxCm5ldC5pcHY2LnJvdXRlLmZsdXNoID0gMQ==".decode("base64")
@@ -71,7 +71,9 @@ def prepare(rType="MAIN"):
     if rType == "MAIN":
         printc("Adding Mariadb Repository")
         if rVersion in rVersions:
-            os.system("sudo apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'")
+            #os.system("sudo apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'")
+            #https://mariadb.com/kb/en/installing-mariadb-deb-files/
+            os.system("sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8'")
             os.system("sudo add-apt-repository -y 'deb [arch=amd64,arm64,ppc64el] http://ams2.mirrors.digitalocean.com/mariadb/repo/10.5/ubuntu %s main'" % rVersions[rVersion])
             os.system("apt-get update > /dev/null")
     for rPackage in rPackages:
@@ -119,7 +121,7 @@ def installadminpanel():
     if os.path.exists("/tmp/update.zip"):
         try: is_ok = zipfile.ZipFile("/tmp/update.zip")
         except:
-            printc("Invalid link or zip file is corrupted!", col.FAIL)
+            printc("Invalid link or zip file is corrupted for /tmp/update.zip!", col.FAIL)
             os.remove("/tmp/update.zip")
             return False
     printc("Installing Admin Panel")
@@ -132,14 +134,25 @@ def installadminpanel():
     if os.path.exists("/tmp/update2.zip"):
         try: is_ok = zipfile.ZipFile("/tmp/update2.zip")
         except:
-            printc("Invalid link or zip file is corrupted!", col.FAIL)
+            printc("Invalid link or zip file is corrupted for /tmp/update2.zip!", col.FAIL)
             os.remove("/tmp/update2.zip")
             return False
         printc("Installing New Stuff for Admin Panel")
         os.system('unzip -o /tmp/update2.zip -d /tmp/update2/ > /dev/null && cp -rf /tmp/update2/* /home/xtreamcodes/iptv_xtream_codes/ > /dev/null && rm -rf /tmp/update2/* > /dev/null && rm -rf /tmp/update2 > /dev/null && chown -R xtreamcodes:xtreamcodes /home/xtreamcodes/ > /dev/null > /dev/null')
         if os.path.exists("/tmp/xtreamui-things"): os.system("rm -rf /tmp/xtreamui-things")
+        try: os.remove("/tmp/update2.zip")
+        except: pass
+
         printc("Getting updated admin-modified files")
-        os.system("git clone https://github.com/emre1393/xtreamui-things.git /tmp/xtreamui-things &> /dev/null")
+        os.system('wget --user-agent="Mozilla/5.0"  -q -O "/tmp/xtreamuithings.zip" "https://github.com/emre1393/xtreamui-things/archive/refs/heads/master.zip"')
+        try: is_ok = zipfile.ZipFile("/tmp/xtreamuithings.zip")
+        except:
+            printc("Invalid link or zip file is corrupted for /tmp/xtreamuithings.zip!", col.FAIL)
+            os.remove("/tmp/xtreamuithings.zip")
+            return False
+        os.system('unzip -o /tmp/xtreamuithings.zip -d /tmp/ > /dev/null && cp -rf /tmp/xtreamui-things-master/admin-modified/* /home/xtreamcodes/iptv_xtream_codes/admin-modified/ > /dev/null && rm -rf /tmp/xtreamui-things-master/* > /dev/null && rm -rf /tmp/xtreamui-things-master > /dev/null && chown -R xtreamcodes:xtreamcodes /home/xtreamcodes/ > /dev/null > /dev/null')
+        try: os.remove("/tmp/xtreamuithings.zip")
+        except: pass
         return True
     printc("Failed to download installation file!", col.FAIL)
     return False
@@ -267,11 +280,6 @@ def configure():
     os.system("sudo chmod +x /etc/systemd/system/xtreamcodes.service")
     os.system("sudo systemctl daemon-reload")
     os.system("sudo systemctl enable xtreamcodes")
-    if rType == "MAIN": 
-        time.sleep(10)
-        if os.path.exists("/tmp/xtreamui-things"):
-            os.system("cp -ur /tmp/xtreamui-things/admin-modified/* /home/xtreamcodes/iptv_xtream_codes/admin/")
-            os.system("rm -rf /tmp/xtreamui-things")
     os.system("chown xtreamcodes:xtreamcodes -R /home/xtreamcodes > /dev/null")
     os.system('chattr -f +i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb > /dev/null')
 
