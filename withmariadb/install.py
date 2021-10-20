@@ -73,7 +73,7 @@ def prepare(rType="MAIN"):
         if rVersion in rVersions:
             #os.system("sudo apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'")
             #https://mariadb.com/kb/en/installing-mariadb-deb-files/
-            os.system("sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8'")
+            os.system("sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8")
             os.system("sudo add-apt-repository -y 'deb [arch=amd64,arm64,ppc64el] http://ams2.mirrors.digitalocean.com/mariadb/repo/10.5/ubuntu %s main'" % rVersions[rVersion])
             os.system("apt-get update > /dev/null")
     for rPackage in rPackages:
