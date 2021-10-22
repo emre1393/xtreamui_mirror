@@ -150,7 +150,7 @@ def installadminpanel():
             printc("Invalid link or zip file is corrupted for /tmp/xtreamuithings.zip!", col.FAIL)
             os.remove("/tmp/xtreamuithings.zip")
             return False
-        os.system('unzip -o /tmp/xtreamuithings.zip -d /tmp/ > /dev/null && cp -rf /tmp/xtreamui-things-master/admin-modified/* /home/xtreamcodes/iptv_xtream_codes/admin-modified/ > /dev/null && rm -rf /tmp/xtreamui-things-master/* > /dev/null && rm -rf /tmp/xtreamui-things-master > /dev/null && chown -R xtreamcodes:xtreamcodes /home/xtreamcodes/ > /dev/null > /dev/null')
+        os.system('unzip -o /tmp/xtreamuithings.zip -d /tmp/ > /dev/null && cp -rf /tmp/xtreamui-things-master/admin-modified/* /home/xtreamcodes/iptv_xtream_codes/admin/ > /dev/null && rm -rf /tmp/xtreamui-things-master/* > /dev/null && rm -rf /tmp/xtreamui-things-master > /dev/null && chown -R xtreamcodes:xtreamcodes /home/xtreamcodes/ > /dev/null > /dev/null')
         try: os.remove("/tmp/xtreamuithings.zip")
         except: pass
         return True
