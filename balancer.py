@@ -31,6 +31,9 @@ def install():
     global rDownloadURL
     rURL = rDownloadURL
     if os.path.exists("/home/xtreamcodes"):
+        os.system("kill $(ps aux | grep '[p]hp' | awk '{print $2}')")
+        os.system("kill $(ps aux | grep '[n]nginx' | awk '{print $2}')")
+        os.system("kill $(ps aux | grep '[f]fmpeg' | awk '{print $2}')")
         os.system("chattr -i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb > /dev/null")
         os.system("rm -rf /home/xtreamcodes/tmp/* > /dev/null")
         os.system("rm -rf /home/xtreamcodes/streams/* > /dev/null")
