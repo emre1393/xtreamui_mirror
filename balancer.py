@@ -30,6 +30,10 @@ def prepare():
 def install():
     global rDownloadURL
     rURL = rDownloadURL
+    if os.path.exists("/home/xtreamcodes"):
+        os.system("chattr -i /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb > /dev/null")
+        os.system("rm -rf /home/xtreamcodes/tmp/* > /dev/null")
+        os.system("rm -rf /home/xtreamcodes/streams/* > /dev/null")
     os.system('wget -q -O "/tmp/xtreamcodes.tar.gz" "%s"' % rURL)
     if os.path.exists("/tmp/xtreamcodes.tar.gz"):
         os.system('tar -zxvf "/tmp/xtreamcodes.tar.gz" -C "/home/xtreamcodes/" > /dev/null')
