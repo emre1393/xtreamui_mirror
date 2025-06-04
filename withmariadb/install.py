@@ -4,7 +4,7 @@ import subprocess, os, random, string, sys, shutil, socket, zipfile, time
 from itertools import cycle, izip
 from zipfile import ZipFile
 
-rDownloadURL = {"main": "https://bitbucket.org/emre1393/xtreamui_mirror/downloads/main_xtreamcodes_reborn.tar.gz", "sub": "https://bitbucket.org/emre1393/xtreamui_mirror/downloads/sub_xtreamcodes_reborn.tar.gz"}
+rDownloadURL = {"main": "https://github.com/emre1393/xtreamui_mirror/releases/latest/download/main.tar.gz", "sub": "https://github.com/emre1393/xtreamui_mirror/releases/latest/download/LB.tar.gz"}
 rPackages = ["libcurl3", "libxslt1-dev", "libgeoip-dev", "e2fsprogs", "wget", "mcrypt", "nscd", "htop", "zip", "unzip", "mc", "libjemalloc1", "python-paramiko", "mariadb-server"]
 rInstall = {"MAIN": "main", "LB": "sub"}
 rMySQLCnf = "IyBYdHJlYW0gQ29kZXMKW2NsaWVudF0KcG9ydCAgICAgICAgICAgICAgICAgICAgICAgICAgICA9IDMzMDYKCltteXNxbGRfc2FmZV0KbmljZSAgICAgICAgICAgICAgICAgICAgICAgICAgICA9IDAKI21hbGxvYyBzZXR0aW5ncwptYWxsb2MtbGliPS91c3IvbGliL3g4Nl82NC1saW51eC1nbnUvbGlidGNtYWxsb2Muc28uNC4zLjAKCltteXNxbGRdCnVzZXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgPSBteXNxbApwb3J0ICAgICAgICAgICAgICAgICAgICAgICAgICAgID0gNzk5OQpiYXNlZGlyICAgICAgICAgICAgICAgICAgICAgICAgID0gL3VzcgpkYXRhZGlyICAgICAgICAgICAgICAgICAgICAgICAgID0gL3Zhci9saWIvbXlzcWwKdG1wZGlyICAgICAgICAgICAgICAgICAgICAgICAgICA9IC90bXAKbGMtbWVzc2FnZXMtZGlyICAgICAgICAgICAgICAgICA9IC91c3Ivc2hhcmUvbXlzcWwKc2tpcC1leHRlcm5hbC1sb2NraW5nCnNraXAtbmFtZS1yZXNvbHZlICAgICAgICAgICAgICAgPTEKYmluZC1hZGRyZXNzICAgICAgICAgICAgICAgICAgICA9ICoKCmtleV9idWZmZXJfc2l6ZSAgICAgICAgICAgICAgICAgPSAxMjhNCm15aXNhbV9zb3J0X2J1ZmZlcl9zaXplICAgICAgICAgPSA0TQptYXhfYWxsb3dlZF9wYWNrZXQgICAgICAgICAgICAgID0gNjRNCm15aXNhbS1yZWNvdmVyLW9wdGlvbnMgICAgICAgICAgPSBCQUNLVVAKbWF4X2xlbmd0aF9mb3Jfc29ydF9kYXRhICAgICAgICA9IDgxOTIKcXVlcnlfY2FjaGVfbGltaXQgICAgICAgICAgICAgICA9IDAKcXVlcnlfY2FjaGVfc2l6ZSAgICAgICAgICAgICAgICA9IDAKcXVlcnlfY2FjaGVfdHlwZSAgICAgICAgICAgICAgICA9IDAKZXhwaXJlX2xvZ3NfZGF5cyAgICAgICAgICAgICAgICA9IDEwCm1heF9iaW5sb2dfc2l6ZSAgICAgICAgICAgICAgICAgPSAxMDBNCm1heF9jb25uZWN0aW9ucyAgICAgICAgICAgICAgICAgPSA4MTkyCmJhY2tfbG9nICAgICAgICAgICAgICAgICAgICAgICAgPSA0MDk2Cm9wZW5fZmlsZXNfbGltaXQgICAgICAgICAgICAgICAgPSAyMDI0MAppbm5vZGJfb3Blbl9maWxlcyAgICAgICAgICAgICAgID0gMjAyNDAKbWF4X2Nvbm5lY3RfZXJyb3JzICAgICAgICAgICAgICA9IDMwNzIKdGFibGVfb3Blbl9jYWNoZSAgICAgICAgICAgICAgICA9IDQwOTYKdGFibGVfZGVmaW5pdGlvbl9jYWNoZSAgICAgICAgICA9IDQwOTYKdG1wX3RhYmxlX3NpemUgICAgICAgICAgICAgICAgICA9IDFHCm1heF9oZWFwX3RhYmxlX3NpemUgICAgICAgICAgICAgPSAxRwoKbWF4X3N0YXRlbWVudF90aW1lID0gMTAwCgppbm5vZGJfYnVmZmVyX3Bvb2xfc2l6ZSAgICAgICAgID0gMTJHCmlubm9kYl9yZWFkX2lvX3RocmVhZHMgICAgICAgICAgPSA2NAppbm5vZGJfd3JpdGVfaW9fdGhyZWFkcyAgICAgICAgID0gNjQKaW5ub2RiX3RocmVhZF9jb25jdXJyZW5jeSAgICAgICA9IDAKaW5ub2RiX2ZsdXNoX2xvZ19hdF90cnhfY29tbWl0ICA9IDAKaW5ub2RiX2ZsdXNoX21ldGhvZCAgICAgICAgICAgICA9IE9fRElSRUNUCnBlcmZvcm1hbmNlX3NjaGVtYSAgICAgICAgICAgICAgPSAwCmlubm9kYi1maWxlLXBlci10YWJsZSAgICAgICAgICAgPSAxCmlubm9kYl9pb19jYXBhY2l0eSAgICAgICAgICAgICAgPSAyMDAwMAppbm5vZGJfdGFibGVfbG9ja3MgICAgICAgICAgICAgID0gMAppbm5vZGJfbG9ja193YWl0X3RpbWVvdXQgICAgICAgID0gMAoKc3FsX21vZGUgICAgICAgICAgICAgICAgICAgICAgICA9ICJOT19FTkdJTkVfU1VCU1RJVFVUSU9OIgoKW21hcmlhZGJdCgp0aHJlYWRfY2FjaGVfc2l6ZSAgICAgICAgICAgICAgID0gODE5Mgp0aHJlYWRfaGFuZGxpbmcgICAgICAgICAgICAgICAgID0gcG9vbC1vZi10aHJlYWRzCnRocmVhZF9wb29sX3NpemUgICAgICAgICAgICAgICAgPSAxMgp0aHJlYWRfcG9vbF9pZGxlX3RpbWVvdXQgICAgICAgID0gMjAKdGhyZWFkX3Bvb2xfbWF4X3RocmVhZHMgICAgICAgICA9IDEwMjQKCltteXNxbGR1bXBdCnF1aWNrCnF1b3RlLW5hbWVzCm1heF9hbGxvd2VkX3BhY2tldCAgICAgICAgICAgICAgPSAxMjhNCmNvbXBsZXRlLWluc2VydAoKW215c3FsXQoKW2lzYW1jaGtdCmtleV9idWZmZXJfc2l6ZSAgICAgICAgICAgICAgICAgPSAxNk0K==".decode("base64")
@@ -115,7 +115,7 @@ def install(rType="MAIN"):
 
 
 def installadminpanel():
-    rURL = "https://bitbucket.org/emre1393/xtreamui_mirror/downloads/release_22f.zip"
+    rURL = "https://github.com/emre1393/xtreamui_mirror/releases/latest/download/release_22f.zip"
     printc("Downloading Admin Panel")  
     os.system('wget --user-agent="Mozilla/5.0"  -q -O "/tmp/update.zip" "%s"' % rURL)
     if os.path.exists("/tmp/update.zip"):
@@ -128,7 +128,7 @@ def installadminpanel():
     os.system('unzip -o /tmp/update.zip -d /tmp/update/ > /dev/null && cp -rf /tmp/update/XtreamUI-master/* /home/xtreamcodes/iptv_xtream_codes/ > /dev/null && rm -rf /tmp/update/XtreamUI-master > /dev/null && rm -rf /tmp/update > /dev/null && chown -R xtreamcodes:xtreamcodes /home/xtreamcodes > /dev/null')
     try: os.remove("/tmp/update.zip")
     except: pass
-    rURL2 = "https://bitbucket.org/emre1393/xtreamui_mirror/downloads/newstuff.zip"
+    rURL2 = "https://github.com/emre1393/xtreamui_mirror/releases/latest/download/newstuff.zip"
     printc("Downloading New Stuff for Admin Panel")  
     os.system('wget --user-agent="Mozilla/5.0"  -q -O "/tmp/update2.zip" "%s"' % rURL2)
     if os.path.exists("/tmp/update2.zip"):
@@ -233,23 +233,23 @@ def configure():
     if rType == "MAIN": 
         os.system("sudo find /home/xtreamcodes/iptv_xtream_codes/admin/ -type f -exec chmod 644 {} \;")
         os.system("sudo find /home/xtreamcodes/iptv_xtream_codes/admin/ -type d -exec chmod 755 {} \;")
-        os.system("sed -i 's|https://bitbucket.org/emre1393/xtreamui_mirror/downloads/balancer.py|https://github.com/emre1393/xtreamui_mirror/raw/master/withmariadb/balancer.py|g'  /home/xtreamcodes/iptv_xtream_codes/pytools/balancer.py")
+        os.system("sed -i 's|https://raw.githubusercontent.com/emre1393/xtreamui_mirror/refs/heads/master/balancer.py|https://github.com/emre1393/xtreamui_mirror/raw/master/withmariadb/balancer.py|g'  /home/xtreamcodes/iptv_xtream_codes/pytools/balancer.py")
     #adds domain/user/pass/id.ts url support
     with open('/home/xtreamcodes/iptv_xtream_codes/nginx/conf/nginx.conf', 'r') as nginx_file:
         nginx_replace = nginx_file.read()
         nginx_replace = nginx_replace.replace("rewrite ^/(.*)/(.*)/(\\d+)$ /streaming/clients_live.php?username=$1&password=$2&stream=$3&extension=ts break;", "rewrite ^/(.*)/(.*)/(\\d+)\\.(.*)$ /streaming/clients_live.php?username=$1&password=$2&stream=$3&extension=$4 break;\r\n        rewrite ^/(.*)/(.*)/(\\d+)$ /streaming/clients_live.php?username=$1&password=$2&stream=$3&extension=ts break;\r\n")
     with open('/home/xtreamcodes/iptv_xtream_codes/nginx/conf/nginx.conf', 'w') as nginx_file:
         nginx_file.write(nginx_replace)
-    os.system("wget --user-agent=\"Mozilla/5.0\"  -q https://bitbucket.org/emre1393/xtreamui_mirror/downloads/nginx -O /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx")
-    os.system("wget --user-agent=\"Mozilla/5.0\" -q https://bitbucket.org/emre1393/xtreamui_mirror/downloads/nginx_rtmp -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/nginx_rtmp")
-    os.system("wget --user-agent=\"Mozilla/5.0\" -q https://bitbucket.org/emre1393/xtreamui_mirror/downloads/pid_monitor.php -O /home/xtreamcodes/iptv_xtream_codes/crons/pid_monitor.php")
+    os.system("wget --user-agent=\"Mozilla/5.0\"  -q https://github.com/emre1393/xtreamui_mirror/releases/latest/download/nginx -O /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx")
+    os.system("wget --user-agent=\"Mozilla/5.0\" -q https://github.com/emre1393/xtreamui_mirror/releases/latest/download/nginx_rtmp -O /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/nginx_rtmp")
+    os.system("wget --user-agent=\"Mozilla/5.0\" -q https://github.com/emre1393/xtreamui_mirror/releases/latest/download/pid_monitor.php -O /home/xtreamcodes/iptv_xtream_codes/crons/pid_monitor.php")
     os.system("sudo chmod +x /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/nginx")
     os.system("sudo chmod +x /home/xtreamcodes/iptv_xtream_codes/nginx_rtmp/sbin/nginx_rtmp")
     os.system("sudo find /home/xtreamcodes/iptv_xtream_codes/wwwdir/ -type f -exec chmod 644 {} \;")
     os.system("sudo find /home/xtreamcodes/iptv_xtream_codes/wwwdir/ -type d -exec chmod 755 {} \;")
     os.system("chmod 0700 /home/xtreamcodes/iptv_xtream_codes/config > /dev/null")
     os.system("sed -i 's|echo \"Xtream Codes Reborn\";|header(\"Location: https://www.google.com/\");|g' /home/xtreamcodes/iptv_xtream_codes/wwwdir/index.php")
-    os.system("wget --user-agent=\"Mozilla/5.0\" -q https://bitbucket.org/emre1393/xtreamui_mirror/downloads/GeoLite2.mmdb -O /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb")
+    os.system("wget --user-agent=\"Mozilla/5.0\" -q https://github.com/emre1393/xtreamui_mirror/releases/latest/download/GeoLite2.mmdb -O /home/xtreamcodes/iptv_xtream_codes/GeoLite2.mmdb")
     os.system("wget --user-agent=\"Mozilla/5.0\"  -q https://yt-dl.org/downloads/latest/youtube-dl -O /home/xtreamcodes/iptv_xtream_codes/bin/youtube")
     os.system("chmod a+rx /home/xtreamcodes/iptv_xtream_codes/bin/youtube")
     os.system('echo "%s" > /home/xtreamcodes/iptv_xtream_codes/nginx/conf/balance.conf' % rNginxBalanceFile)
